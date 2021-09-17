@@ -1,17 +1,17 @@
 package ru.mipt.bit.platformer.util.builder;
 
-import ru.mipt.bit.platformer.actors.Playable;
+import ru.mipt.bit.platformer.actors.Tank;
 import ru.mipt.bit.platformer.actors.event.*;
 import ru.mipt.bit.platformer.gameobjects.CollisionChecker;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class SimpleKeyEventBuilder implements KeyEventBuilder{
-    private final Playable player;
+public class SimpleKeyEventBuilder implements KeyEventBuilder {
+    private final Tank player;
     private final CollisionChecker collisionChecker;
 
-    public SimpleKeyEventBuilder(Playable player, CollisionChecker collisionChecker) {
+    public SimpleKeyEventBuilder(Tank player, CollisionChecker collisionChecker) {
         this.player = player;
         this.collisionChecker = collisionChecker;
     }

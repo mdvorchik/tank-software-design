@@ -4,12 +4,11 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Rectangle;
-import ru.mipt.bit.platformer.actors.action.ActionFromPlayer;
 import ru.mipt.bit.platformer.gameobjects.GDXDrawable;
 
 import static ru.mipt.bit.platformer.util.GdxGameUtils.createBoundingRectangle;
 
-public class Tank implements Playable, GDXDrawable {
+public class Tank implements GDXDrawable {
 
     private final TextureRegion playerGraphics;
     private final Rectangle playerRectangle;
@@ -79,10 +78,5 @@ public class Tank implements Playable, GDXDrawable {
     @Override
     public float getRotation() {
         return getPlayerRotation();
-    }
-
-    @Override
-    public void makeCommandFromPlayer(ActionFromPlayer action) {
-        //TODO make some actions in Tank class
     }
 }

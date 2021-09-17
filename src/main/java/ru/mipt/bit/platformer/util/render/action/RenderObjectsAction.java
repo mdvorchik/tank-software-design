@@ -1,7 +1,7 @@
 package ru.mipt.bit.platformer.util.render.action;
 
 import ru.mipt.bit.platformer.gameobjects.GDXDrawable;
-import ru.mipt.bit.platformer.util.render.RenderImpl;
+import ru.mipt.bit.platformer.util.render.Render;
 
 import java.util.List;
 
@@ -15,13 +15,12 @@ public class RenderObjectsAction implements RenderAction {
     }
 
     @Override
-    public void doAction(Object render) {
+    public void doAction(Render render) {
         // render drawable objects
-        if (render instanceof RenderImpl) {
-            for (GDXDrawable gdxDrawable : drawableList) {
-                drawTextureRegionUnscaled(((RenderImpl) render).getBatch(), gdxDrawable.getGraphics(),
-                        gdxDrawable.getRectangle(), gdxDrawable.getRotation());
-            }
+        for (GDXDrawable gdxDrawable : drawableList) {
+            drawTextureRegionUnscaled(render.getBatch(), gdxDrawable.getGraphics(),
+                    gdxDrawable.getRectangle(), gdxDrawable.getRotation());
         }
+
     }
 }

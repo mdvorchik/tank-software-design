@@ -16,7 +16,7 @@ import ru.mipt.bit.platformer.gameobjects.GDXDrawable;
 import ru.mipt.bit.platformer.gameobjects.Tree;
 import ru.mipt.bit.platformer.util.builder.RenderBuilder;
 import ru.mipt.bit.platformer.util.builder.SimpleRenderBuilder;
-import ru.mipt.bit.platformer.util.render.RenderImpl;
+import ru.mipt.bit.platformer.util.render.Render;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -27,10 +27,14 @@ import static ru.mipt.bit.platformer.util.GdxGameUtils.moveRectangleAtTileCenter
 
 public class GameDesktopLauncher implements ApplicationListener {
 
-    private RenderImpl render;
     private final List<Disposable> disposables = new ArrayList<>();
+    private Render render;
 
-    public GameDesktopLauncher() {
+    public static void main(String[] args) {
+        Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
+        // level width: 10 tiles x 128px, height: 8 tiles x 128px
+        config.setWindowedMode(1280, 1024);
+        new Lwjgl3Application(new GameDesktopLauncher(), config);
     }
 
     @Override
@@ -47,7 +51,7 @@ public class GameDesktopLauncher implements ApplicationListener {
         Batch batch = new SpriteBatch();
         TiledMap level = new TmxMapLoader().load("level.tmx");
         RenderBuilder renderBuilder = new SimpleRenderBuilder(tank, drawables, collideAbles, batch, level);
-        render = (RenderImpl) renderBuilder.buildRender();
+        render = renderBuilder.buildRender();
 
         disposables.add(blueTankTexture);
         disposables.add(greenTreeTexture);
@@ -83,12 +87,5 @@ public class GameDesktopLauncher implements ApplicationListener {
         for (Disposable disposable : disposables) {
             disposable.dispose();
         }
-    }
-
-    public static void main(String[] args) {
-        Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
-        // level width: 10 tiles x 128px, height: 8 tiles x 128px
-        config.setWindowedMode(1280, 1024);
-        new Lwjgl3Application(new GameDesktopLauncher(), config);
     }
 }

@@ -1,16 +1,15 @@
 package ru.mipt.bit.platformer.actors.action;
 
-import ru.mipt.bit.platformer.actors.Playable;
 import ru.mipt.bit.platformer.actors.Tank;
 import ru.mipt.bit.platformer.gameobjects.CollisionChecker;
 
 import static ru.mipt.bit.platformer.util.GdxGameUtils.decrementedY;
 
 public class MoveDownAction implements ActionFromPlayer {
-    private final Playable player;
+    private final Tank player;
     private final CollisionChecker collisionChecker;
 
-    public MoveDownAction(Playable player, CollisionChecker collisionChecker) {
+    public MoveDownAction(Tank player, CollisionChecker collisionChecker) {
         this.player = player;
         this.collisionChecker = collisionChecker;
     }
@@ -18,12 +17,10 @@ public class MoveDownAction implements ActionFromPlayer {
     @Override
     public void doAction() {
         // check potential player destination for collision with obstacles
-        if (player instanceof Tank) {
-            if (collisionChecker.checkNotCollision(decrementedY(((Tank) player).getPlayerCoordinates()))) {
-                ((Tank) player).setPlayerDestinationCoordinates(decrementedY(((Tank) player).getPlayerCoordinates()));
-                ((Tank) player).setPlayerMovementProgress(0f);
-            }
-            ((Tank) player).setPlayerRotation(-90f);
+        if (collisionChecker.checkNotCollision(decrementedY(player.getPlayerCoordinates()))) {
+            player.setPlayerDestinationCoordinates(decrementedY(player.getPlayerCoordinates()));
+            player.setPlayerMovementProgress(0f);
         }
+        player.setPlayerRotation(-90f);
     }
 }
