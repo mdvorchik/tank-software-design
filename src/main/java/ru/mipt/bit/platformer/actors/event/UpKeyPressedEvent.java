@@ -8,7 +8,6 @@ import ru.mipt.bit.platformer.gameobjects.CollisionChecker;
 
 import static com.badlogic.gdx.Input.Keys.UP;
 import static com.badlogic.gdx.Input.Keys.W;
-import static com.badlogic.gdx.math.MathUtils.isEqual;
 
 public class UpKeyPressedEvent implements EventFromPlayer {
     final Tank player;
@@ -24,7 +23,7 @@ public class UpKeyPressedEvent implements EventFromPlayer {
     @Override
     public ActionFromPlayer makeAction() {
         if (Gdx.input.isKeyPressed(UP) || Gdx.input.isKeyPressed(W)) {
-            if (isEqual(player.getPlayerMovementProgress(), playerMovementProgressLimit)) {
+            if (player.checkPlayerCanMove(playerMovementProgressLimit)) {
                 return new MoveUpAction(player, collisionChecker);
             }
         }

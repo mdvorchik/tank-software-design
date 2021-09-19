@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Rectangle;
 import ru.mipt.bit.platformer.gameobjects.GDXDrawable;
 
+import static com.badlogic.gdx.math.MathUtils.isEqual;
 import static ru.mipt.bit.platformer.util.GdxGameUtils.createBoundingRectangle;
 
 public class Tank implements GDXDrawable {
@@ -25,6 +26,10 @@ public class Tank implements GDXDrawable {
         this.playerRectangle = createBoundingRectangle(playerGraphics);
     }
 
+    public boolean checkPlayerCanMove(float playerMovementProgressLimit) {
+        return isEqual(playerMovementProgress, playerMovementProgressLimit);
+    }
+
     public float getPlayerMovementProgress() {
         return playerMovementProgress;
     }
@@ -35,6 +40,10 @@ public class Tank implements GDXDrawable {
 
     public float getPlayerRotation() {
         return playerRotation;
+    }
+
+    public void setPlayerRotation(float playerRotation) {
+        this.playerRotation = playerRotation;
     }
 
     public GridPoint2 getPlayerCoordinates() {
@@ -51,10 +60,6 @@ public class Tank implements GDXDrawable {
 
     public void setPlayerDestinationCoordinates(GridPoint2 playerDestinationCoordinates) {
         this.playerDestinationCoordinates = playerDestinationCoordinates;
-    }
-
-    public void setPlayerRotation(float playerRotation) {
-        this.playerRotation = playerRotation;
     }
 
     public Rectangle getPlayerRectangle() {
