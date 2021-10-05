@@ -77,12 +77,52 @@ public class GameDesktopLauncher implements ApplicationListener {
     @Override
     public void render() {
         // clear the screen
-        Gdx.gl.glClearColor(0f, 0f, 0.2f, 1f);
-        Gdx.gl.glClear(GL_COLOR_BUFFER_BIT);
+        clearScreen();
 
-        // get time passed since the last render
-        float deltaTime = Gdx.graphics.getDeltaTime();
+        float deltaTime = getDeltaTime();
 
+        processInputs();
+
+        drawMovementOfPlayer();
+
+        processPlayerMovementProgress(deltaTime);
+
+        renderEachTileOfLevel();
+
+        recordAllDrawingCommands();
+    }
+
+    private void recordAllDrawingCommands() {
+        // start recording all drawing commands
+        batch.begin();
+
+        // render player
+        drawTextureRegionUnscaled(batch, playerGraphics, playerRectangle, playerRotation);
+
+        // render tree obstacle
+        drawTextureRegionUnscaled(batch, treeObstacleGraphics, treeObstacleRectangle, 0f);
+
+        // submit all drawing requests
+        batch.end();
+    }
+
+    private void renderEachTileOfLevel() {
+        levelRenderer.render();
+    }
+
+    private void processPlayerMovementProgress(float deltaTime) {
+        playerMovementProgress = continueProgress(playerMovementProgress, deltaTime, MOVEMENT_SPEED);
+        if (isEqual(playerMovementProgress, 1f)) {
+            // record that the player has reached his/her destination
+            playerCoordinates.set(playerDestinationCoordinates);
+        }
+    }
+
+    private Rectangle drawMovementOfPlayer() {
+        return tileMovement.moveRectangleBetweenTileCenters(playerRectangle, playerCoordinates, playerDestinationCoordinates, playerMovementProgress);
+    }
+
+    private void processInputs() {
         if (Gdx.input.isKeyPressed(UP) || Gdx.input.isKeyPressed(W)) {
             if (isEqual(playerMovementProgress, 1f)) {
                 // check potential player destination for collision with obstacles
@@ -120,30 +160,15 @@ public class GameDesktopLauncher implements ApplicationListener {
                 playerRotation = 0f;
             }
         }
+    }
 
-        // calculate interpolated player screen coordinates
-        tileMovement.moveRectangleBetweenTileCenters(playerRectangle, playerCoordinates, playerDestinationCoordinates, playerMovementProgress);
+    private float getDeltaTime() {
+        return Gdx.graphics.getDeltaTime();
+    }
 
-        playerMovementProgress = continueProgress(playerMovementProgress, deltaTime, MOVEMENT_SPEED);
-        if (isEqual(playerMovementProgress, 1f)) {
-            // record that the player has reached his/her destination
-            playerCoordinates.set(playerDestinationCoordinates);
-        }
-
-        // render each tile of the level
-        levelRenderer.render();
-
-        // start recording all drawing commands
-        batch.begin();
-
-        // render player
-        drawTextureRegionUnscaled(batch, playerGraphics, playerRectangle, playerRotation);
-
-        // render tree obstacle
-        drawTextureRegionUnscaled(batch, treeObstacleGraphics, treeObstacleRectangle, 0f);
-
-        // submit all drawing requests
-        batch.end();
+    private void clearScreen() {
+        Gdx.gl.glClearColor(0f, 0f, 0.2f, 1f);
+        Gdx.gl.glClear(GL_COLOR_BUFFER_BIT);
     }
 
     @Override
