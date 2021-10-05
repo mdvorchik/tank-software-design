@@ -7,14 +7,16 @@ import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.MapRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Interpolation;
-import com.badlogic.gdx.math.Rectangle;
+import ru.mipt.bit.platformer.gameobjects.Tank;
+import ru.mipt.bit.platformer.gameobjects.Tree;
+import ru.mipt.bit.platformer.graphics.TankGraphics;
+import ru.mipt.bit.platformer.graphics.TreeGraphics;
 import ru.mipt.bit.platformer.util.TileMovement;
 
 import static com.badlogic.gdx.graphics.GL20.GL_COLOR_BUFFER_BIT;
@@ -26,19 +28,15 @@ public class GameDesktopLauncher implements ApplicationListener {
 
     private TiledMap level;
     private MapRenderer levelRenderer;
-    private TileMovement tileMovement;
 
     private Texture blueTankTexture;
-    private TextureRegion playerGraphics;
-    private Rectangle playerRectangle;
     // player current position coordinates on level 10x8 grid (e.g. x=0, y=1)
 
     private Texture greenTreeTexture;
-    private TextureRegion treeObstacleGraphics;
-    private Rectangle treeObstacleRectangle = new Rectangle();
 
-    private Player player;
-    private Tree tree;
+    private Tank tank;
+    private TankGraphics tankGraphics;
+    private TreeGraphics treeGraphics;
     private InputProcessor inputProcessor;
 
     public static void main(String[] args) {
@@ -56,33 +54,31 @@ public class GameDesktopLauncher implements ApplicationListener {
         level = new TmxMapLoader().load("level.tmx");
         levelRenderer = createSingleLayerMapRenderer(level, batch);
         TiledMapTileLayer groundLayer = getSingleLayer(level);
-        tileMovement = new TileMovement(groundLayer, Interpolation.smooth);
+        TileMovement tileMovement = new TileMovement(groundLayer, Interpolation.smooth);
 
         // Texture decodes an image file and loads it into GPU memory, it represents a native resource
         blueTankTexture = new Texture("images/tank_blue.png");
         // TextureRegion represents Texture portion, there may be many TextureRegion instances of the same Texture
-        playerGraphics = new TextureRegion(blueTankTexture);
-        playerRectangle = createBoundingRectangle(playerGraphics);
 
         greenTreeTexture = new Texture("images/greenTree.png");
-        treeObstacleGraphics = new TextureRegion(greenTreeTexture);
-        treeObstacleRectangle = createBoundingRectangle(treeObstacleGraphics);
 
-        player = new Player();
-        tree = new Tree(new GridPoint2(1, 3), 0f);
-        moveRectangleAtTileCenter(groundLayer, treeObstacleRectangle, tree.getCoordinates());
-        inputProcessor = new InputProcessor(player, tree);
+        tank = new Tank();
+        Tree tree = new Tree(new GridPoint2(1, 3), 0f);
+        tankGraphics = new TankGraphics(tank, blueTankTexture, tileMovement);
+        treeGraphics = new TreeGraphics(tree, greenTreeTexture, tileMovement);
+        moveRectangleAtTileCenter(groundLayer, treeGraphics.getRectangle(), tree.getCoordinates());
+        inputProcessor = new InputProcessor(tank, tree);
     }
 
     @Override
     public void render() {
         clearScreen();
 
-        float deltaTime = getDeltaTime();
-
         processInputs();
 
-        processPlayerMovementProgress(deltaTime);
+        processPlayerMovementProgress(getDeltaTime());
+
+        drawMovementOfPlayer();
 
         renderEachTileOfLevel();
 
@@ -98,10 +94,10 @@ public class GameDesktopLauncher implements ApplicationListener {
         batch.begin();
 
         // render player
-        drawTextureRegionUnscaled(batch, playerGraphics, drawMovementOfPlayer(), player.getPlayerRotation());
+        tankGraphics.drawTexture(batch);
 
         // render tree obstacle
-        drawTextureRegionUnscaled(batch, treeObstacleGraphics, treeObstacleRectangle, tree.getRotation());
+        treeGraphics.drawTexture(batch);
 
         // submit all drawing requests
         batch.end();
@@ -112,12 +108,11 @@ public class GameDesktopLauncher implements ApplicationListener {
     }
 
     private void processPlayerMovementProgress(float deltaTime) {
-        player.processMovementProgress(deltaTime);
+        tank.processMovementProgress(deltaTime);
     }
 
-    private Rectangle drawMovementOfPlayer() {
-        return tileMovement.moveRectangleBetweenTileCenters(playerRectangle, player.getPlayerCoordinates(),
-                player.getPlayerDestinationCoordinates(), player.getPlayerMovementProgress());
+    private void drawMovementOfPlayer() {
+        tankGraphics.drawMovement();
     }
 
     private float getDeltaTime() {

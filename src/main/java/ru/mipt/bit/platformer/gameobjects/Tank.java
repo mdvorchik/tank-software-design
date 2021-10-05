@@ -1,11 +1,11 @@
-package ru.mipt.bit.platformer;
+package ru.mipt.bit.platformer.gameobjects;
 
 import com.badlogic.gdx.math.GridPoint2;
 
 import static com.badlogic.gdx.math.MathUtils.isEqual;
 import static ru.mipt.bit.platformer.util.GdxGameUtils.*;
 
-public class Player {
+public class Tank {
     private final float movementSpeed = 0.4f;
 
     private GridPoint2 playerCoordinates = new GridPoint2(1, 0);
