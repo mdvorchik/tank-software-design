@@ -12,6 +12,7 @@ import ru.mipt.bit.platformer.gameobjects.Tree;
 import ru.mipt.bit.platformer.graphics.Renderer;
 import ru.mipt.bit.platformer.graphics.TankGraphics;
 import ru.mipt.bit.platformer.graphics.TreeGraphics;
+import ru.mipt.bit.platformer.physics.CollisionChecker;
 import ru.mipt.bit.platformer.physics.GameEngine;
 
 import java.util.ArrayList;
@@ -33,10 +34,15 @@ public class GameDesktopLauncher implements ApplicationListener {
 
     @Override
     public void create() {
-        Tree tree = new Tree(new GridPoint2(1, 3), 0f);
-        Tank tank = new Tank();
+        CollisionChecker collisionChecker = new CollisionChecker(new ArrayList<>());
 
-        InputProcessor inputProcessor = new InputProcessor(tank, tree);
+        Tree tree = new Tree(new GridPoint2(1, 3), 0f);
+        Tank tank = new Tank(0.4f, collisionChecker, new GridPoint2(1, 0), new GridPoint2(1, 1));
+
+        collisionChecker.addCollidable(tree);
+        collisionChecker.addCollidable(tank);
+
+        InputProcessor inputProcessor = new InputProcessor(tank);
 
         gameEngine = new GameEngine(inputProcessor, tank);
         renderer = new Renderer(new SpriteBatch(), new TmxMapLoader().load("level.tmx"), new ArrayList<>());

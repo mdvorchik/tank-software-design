@@ -1,53 +1,70 @@
 package ru.mipt.bit.platformer.gameobjects;
 
 import com.badlogic.gdx.math.GridPoint2;
+import ru.mipt.bit.platformer.physics.CollisionChecker;
+
+import java.util.Arrays;
+import java.util.Collection;
 
 import static com.badlogic.gdx.math.MathUtils.isEqual;
 import static ru.mipt.bit.platformer.util.GdxGameUtils.*;
 
-public class Tank {
-    private final float movementSpeed = 0.4f;
-
-    private final GridPoint2 playerCoordinates = new GridPoint2(1, 0);
-    private final GridPoint2 playerDestinationCoordinates = new GridPoint2(1, 1);
-
+public class Tank implements Collidable {
+    private final float movementSpeed;
+    private final CollisionChecker collisionChecker;
+    private final GridPoint2 playerCoordinates;
+    private GridPoint2 playerDestinationCoordinates;
     private float playerMovementProgress = 1f;
     private float playerRotation;
+
+    public Tank(float movementSpeed, CollisionChecker collisionChecker, GridPoint2 playerCoordinates, GridPoint2 playerDestinationCoordinates) {
+        this.movementSpeed = movementSpeed;
+        this.collisionChecker = collisionChecker;
+        this.playerCoordinates = playerCoordinates;
+        this.playerDestinationCoordinates = playerDestinationCoordinates;
+    }
 
 
     public boolean canMoveInThisTick() {
         return isEqual(playerMovementProgress, 1f);
     }
 
-    //TODO перенести логику столкновений в отдельный класс
-    public void moveUp(GridPoint2 obstacleCoordinate) {
-        if (!obstacleCoordinate.equals(incrementedY(playerCoordinates))) {
-            playerDestinationCoordinates.y++;
+    public void moveUp() {
+        playerDestinationCoordinates = incrementedY(playerDestinationCoordinates);
+        if (isNotCollision()) {
             playerMovementProgress = 0f;
+        } else {
+            playerDestinationCoordinates = decrementedY(playerDestinationCoordinates);
         }
         playerRotation = 90f;
     }
 
-    public void moveLeft(GridPoint2 obstacleCoordinate) {
-        if (!obstacleCoordinate.equals(decrementedX(playerCoordinates))) {
-            playerDestinationCoordinates.x--;
+    public void moveLeft() {
+        playerDestinationCoordinates = decrementedX(playerDestinationCoordinates);
+        if (isNotCollision()) {
             playerMovementProgress = 0f;
+        } else {
+            playerDestinationCoordinates = incrementedX(playerDestinationCoordinates);
         }
         playerRotation = -180f;
     }
 
-    public void moveDown(GridPoint2 obstacleCoordinate) {
-        if (!obstacleCoordinate.equals(decrementedY(playerCoordinates))) {
-            playerDestinationCoordinates.y--;
+    public void moveDown() {
+        playerDestinationCoordinates = decrementedY(playerDestinationCoordinates);
+        if (isNotCollision()) {
             playerMovementProgress = 0f;
+        } else {
+            playerDestinationCoordinates = incrementedY(playerDestinationCoordinates);
         }
         playerRotation = -90f;
     }
 
-    public void moveRight(GridPoint2 obstacleCoordinate) {
-        if (!obstacleCoordinate.equals(incrementedX(playerCoordinates))) {
-            playerDestinationCoordinates.x++;
+    public void moveRight() {
+        playerDestinationCoordinates = incrementedX(playerDestinationCoordinates);
+        if (isNotCollision()) {
             playerMovementProgress = 0f;
+        } else {
+            playerDestinationCoordinates = decrementedX(playerDestinationCoordinates);
         }
         playerRotation = 0f;
     }
@@ -58,6 +75,11 @@ public class Tank {
             // record that the player has reached his/her destination
             playerCoordinates.set(playerDestinationCoordinates);
         }
+    }
+
+    @Override
+    public Collection<GridPoint2> getCoordinateList() {
+        return Arrays.asList(playerCoordinates, playerDestinationCoordinates);
     }
 
     public GridPoint2 getPlayerCoordinates() {
@@ -74,5 +96,9 @@ public class Tank {
 
     public float getPlayerRotation() {
         return playerRotation;
+    }
+
+    private boolean isNotCollision() {
+        return !collisionChecker.isCollisionWithAnotherGameObject(this);
     }
 }
