@@ -19,6 +19,7 @@ public class Tank {
         return isEqual(playerMovementProgress, 1f);
     }
 
+    //TODO перенести логику столкновений в отдельный класс
     public void moveUp(GridPoint2 obstacleCoordinate) {
         if (!obstacleCoordinate.equals(incrementedY(playerCoordinates))) {
             playerDestinationCoordinates.y++;
