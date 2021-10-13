@@ -4,24 +4,15 @@ import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.maps.tiled.TmxMapLoader;
-import com.badlogic.gdx.math.GridPoint2;
-import ru.mipt.bit.platformer.gameobjects.Tank;
-import ru.mipt.bit.platformer.gameobjects.Tree;
+import ru.mipt.bit.platformer.generator.RandomLevelGenerator;
+import ru.mipt.bit.platformer.generator.RendererBuilder;
 import ru.mipt.bit.platformer.graphics.Renderer;
-import ru.mipt.bit.platformer.graphics.TankGraphics;
-import ru.mipt.bit.platformer.graphics.TreeGraphics;
-import ru.mipt.bit.platformer.physics.CollisionChecker;
 import ru.mipt.bit.platformer.physics.GameEngine;
-
-import java.util.ArrayList;
-import java.util.List;
 
 
 public class GameDesktopLauncher implements ApplicationListener {
 
-    private List<Texture> textures;
+    private RendererBuilder rendererBuilder;
     private GameEngine gameEngine;
     private Renderer renderer;
 
@@ -34,33 +25,10 @@ public class GameDesktopLauncher implements ApplicationListener {
 
     @Override
     public void create() {
-        CollisionChecker collisionChecker = new CollisionChecker(new ArrayList<>());
-
-        Tree tree = new Tree(new GridPoint2(1, 3), 0f);
-        Tank tank = new Tank(0.4f, collisionChecker, new GridPoint2(1, 0), new GridPoint2(1, 1));
-
-        collisionChecker.addCollidable(tree);
-        collisionChecker.addCollidable(tank);
-
-        InputProcessor inputProcessor = new InputProcessor(tank);
-
-        gameEngine = new GameEngine(inputProcessor, tank);
-        renderer = new Renderer(new SpriteBatch(), new TmxMapLoader().load("level.tmx"), new ArrayList<>());
-
-        textures = new ArrayList<>();
-        // Texture decodes an image file and loads it into GPU memory, it represents a native resource
-        Texture blueTankTexture = new Texture("images/tank_blue.png");
-        textures.add(blueTankTexture);
-        // TextureRegion represents Texture portion, there may be many TextureRegion instances of the same Texture
-        Texture greenTreeTexture = new Texture("images/greenTree.png");
-        textures.add(greenTreeTexture);
-
-        TankGraphics tankGraphics = new TankGraphics(tank, blueTankTexture, renderer.getTileMovement());
-        TreeGraphics treeGraphics = new TreeGraphics(tree, greenTreeTexture, renderer.getTileMovement());
-
-        renderer.addDrawableObject(tankGraphics);
-        renderer.addDrawableObject(treeGraphics);
-        renderer.moveRectangleAtTileCenter(treeGraphics.getRectangle(), tree.getCoordinates());
+        RandomLevelGenerator randomLevelGenerator = new RandomLevelGenerator(10, 8, 4);
+        rendererBuilder = new RendererBuilder("level.tmx", "images/tank_blue.png", "images/greenTree.png");
+        gameEngine = randomLevelGenerator.getGameEngine();
+        renderer = rendererBuilder.generateRenderer(randomLevelGenerator);
     }
 
     @Override
@@ -87,7 +55,7 @@ public class GameDesktopLauncher implements ApplicationListener {
     @Override
     public void dispose() {
         // dispose of all the native resources (classes which implement com.badlogic.gdx.utils.Disposable)
-        for (Texture texture : textures) {
+        for (Texture texture : rendererBuilder.getTextures()) {
             texture.dispose();
         }
     }
