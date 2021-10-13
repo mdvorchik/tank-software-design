@@ -26,13 +26,13 @@ public class RendererBuilder {
         textures.add(treeTexture);
     }
 
-    public Renderer generateRenderer(RandomLevelGenerator randomLevelGenerator) {
+    public Renderer generateRenderer(LevelGenerator randomLevelGenerator) {
         generateTankGraphics(randomLevelGenerator);
         generateTreeGraphics(randomLevelGenerator);
         return renderer;
     }
 
-    private void generateTreeGraphics(RandomLevelGenerator randomLevelGenerator) {
+    private void generateTreeGraphics(LevelGenerator randomLevelGenerator) {
         List<Tree> trees = randomLevelGenerator.getTrees();
         for (Tree tree : trees) {
             TreeGraphics treeGraphics = new TreeGraphics(tree, treeTexture, renderer.getTileMovement());
@@ -41,7 +41,7 @@ public class RendererBuilder {
         }
     }
 
-    private void generateTankGraphics(RandomLevelGenerator randomLevelGenerator) {
+    private void generateTankGraphics(LevelGenerator randomLevelGenerator) {
         Tank tank = randomLevelGenerator.getTank();
         TankGraphics tankGraphics = new TankGraphics(tank, tankTexture, renderer.getTileMovement());
         renderer.addDrawableObject(tankGraphics);

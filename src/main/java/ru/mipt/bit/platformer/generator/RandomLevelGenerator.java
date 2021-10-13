@@ -14,7 +14,7 @@ import java.util.Set;
 
 import static ru.mipt.bit.platformer.util.GdxGameUtils.incrementedY;
 
-public class RandomLevelGenerator {
+public class RandomLevelGenerator implements LevelGenerator {
     private final GameEngine gameEngine;
     private final List<Tree> trees = new ArrayList<>();
     private final Tank tank;

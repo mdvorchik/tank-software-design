@@ -4,7 +4,8 @@ import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 import com.badlogic.gdx.graphics.Texture;
-import ru.mipt.bit.platformer.generator.RandomLevelGenerator;
+import ru.mipt.bit.platformer.generator.FromFileLevelGenerator;
+import ru.mipt.bit.platformer.generator.LevelGenerator;
 import ru.mipt.bit.platformer.generator.RendererBuilder;
 import ru.mipt.bit.platformer.graphics.Renderer;
 import ru.mipt.bit.platformer.physics.GameEngine;
@@ -25,10 +26,11 @@ public class GameDesktopLauncher implements ApplicationListener {
 
     @Override
     public void create() {
-        RandomLevelGenerator randomLevelGenerator = new RandomLevelGenerator(10, 8, 4);
+//        LevelGenerator levelGenerator = new RandomLevelGenerator(10, 8, 4);
+        LevelGenerator levelGenerator = new FromFileLevelGenerator("src/main/resources/level.txt");
         rendererBuilder = new RendererBuilder("level.tmx", "images/tank_blue.png", "images/greenTree.png");
-        gameEngine = randomLevelGenerator.getGameEngine();
-        renderer = rendererBuilder.generateRenderer(randomLevelGenerator);
+        gameEngine = levelGenerator.getGameEngine();
+        renderer = rendererBuilder.generateRenderer(levelGenerator);
     }
 
     @Override
