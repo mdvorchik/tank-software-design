@@ -21,12 +21,14 @@ public class ObjectsByCoordinatesCreator {
 
     public ObjectsByCoordinatesCreator(List<GridPoint2> tankCoordinatesList,
                                        List<GridPoint2> treeCoordinatesList,
+                                       List<GridPoint2> levelBordersList,
                                        CollisionChecker collisionChecker) {
         this.tankCoordinatesList = tankCoordinatesList;
         this.treeCoordinatesList = treeCoordinatesList;
         this.collisionChecker = collisionChecker;
         createTanksWithCollision();
         createTreesWithCollision();
+        createLevelBordersCollision(levelBordersList);
         playerTank = tanks.remove(tanks.size() - 1);
     }
 
@@ -44,6 +46,16 @@ public class ObjectsByCoordinatesCreator {
             trees.add(new Tree(treeCoordinates, 0f));
         }
         for (Tree tree : trees) {
+            collisionChecker.addCollidable(tree);
+        }
+    }
+
+    private void createLevelBordersCollision(List<GridPoint2> levelBordersList) {
+        List<Tree> obstacles = new ArrayList<>();
+        for (GridPoint2 treeCoordinates : levelBordersList) {
+            obstacles.add(new Tree(treeCoordinates, 0f));
+        }
+        for (Tree tree : obstacles) {
             collisionChecker.addCollidable(tree);
         }
     }

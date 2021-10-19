@@ -22,10 +22,11 @@ public class RandomLevelGenerator implements LevelGenerator {
     public RandomLevelGenerator(int widthOfMap, int heightOfMap, int treesCount, int tankCount) {
         List<GridPoint2> treeCoordinatesList = new ArrayList<>(generateRandomCoordinates(treesCount, widthOfMap, heightOfMap));
         List<GridPoint2> tankCoordinatesList = new ArrayList<>(generateRandomCoordinates(tankCount, widthOfMap, heightOfMap));
+        List<GridPoint2> levelBorders = new ArrayList<>(createBorderCoordinates(widthOfMap, heightOfMap));
         CollisionChecker collisionChecker = new CollisionChecker(new ArrayList<>());
 
         ObjectsByCoordinatesCreator creator = new ObjectsByCoordinatesCreator(tankCoordinatesList,
-                treeCoordinatesList, collisionChecker);
+                treeCoordinatesList, levelBorders, collisionChecker);
         trees = creator.getTrees();
         tanks = creator.getTanks();
         playerTank = creator.getPlayerTank();
@@ -35,6 +36,23 @@ public class RandomLevelGenerator implements LevelGenerator {
 
     public GameEngine getGameEngine() {
         return gameEngine;
+    }
+
+    private Set<GridPoint2> createBorderCoordinates(int width, int height) {
+        Set<GridPoint2> levelBorders = new HashSet<>();
+        for (int i = 0; i < height; i++) {
+            levelBorders.add(new GridPoint2(-1, i));
+        }
+        for (int i = 0; i < height; i++) {
+            levelBorders.add(new GridPoint2(width, i));
+        }
+        for (int j = 0; j < width; j++) {
+            levelBorders.add(new GridPoint2(j, -1));
+        }
+        for (int j = 0; j < width; j++) {
+            levelBorders.add(new GridPoint2(j, height));
+        }
+        return levelBorders;
     }
 
     private Set<GridPoint2> generateRandomCoordinates(int numberToGenerate, int maxX, int maxY) {

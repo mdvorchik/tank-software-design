@@ -20,15 +20,37 @@ public class FromFileLevelGenerator implements LevelGenerator {
     public FromFileLevelGenerator(String fileName) {
         List<GridPoint2> treeCoordinatesList = new ArrayList<>(readCoordinatesOf(fileName, "T"));
         List<GridPoint2> tankCoordinatesList = new ArrayList<>(readCoordinatesOf(fileName, "X"));
+        List<GridPoint2> levelBordersList = new ArrayList<>(readCoordinatesOf(fileName));
         CollisionChecker collisionChecker = new CollisionChecker(new ArrayList<>());
 
         ObjectsByCoordinatesCreator creator = new ObjectsByCoordinatesCreator(tankCoordinatesList,
-                treeCoordinatesList, collisionChecker);
+                treeCoordinatesList, levelBordersList, collisionChecker);
         trees = creator.getTrees();
         tanks = creator.getTanks();
         playerTank = creator.getPlayerTank();
 
         gameEngine = new GameEngine(playerTank, tanks);
+    }
+
+    private Set<GridPoint2> readCoordinatesOf(String fileName) {
+        Set<GridPoint2> levelBorders = new HashSet<>();
+        List<List<String>> signMultiArray = new ArrayList<>();
+        fillSignMultiArrayFromFile(fileName, signMultiArray);
+        int height = signMultiArray.size();
+        int width = signMultiArray.get(0).size();
+        for (int i = 0; i < height; i++) {
+            levelBorders.add(new GridPoint2(-1, i));
+        }
+        for (int i = 0; i < height; i++) {
+            levelBorders.add(new GridPoint2(width, i));
+        }
+        for (int j = 0; j < width; j++) {
+            levelBorders.add(new GridPoint2(j, -1));
+        }
+        for (int j = 0; j < width; j++) {
+            levelBorders.add(new GridPoint2(j, height));
+        }
+        return levelBorders;
     }
 
     public GameEngine getGameEngine() {
