@@ -42,8 +42,17 @@ public class RendererBuilder {
     }
 
     private void generateTankGraphics(LevelGenerator randomLevelGenerator) {
-        Tank tank = randomLevelGenerator.getTank();
-        TankGraphics tankGraphics = new TankGraphics(tank, tankTexture, renderer.getTileMovement());
+        generatePlayerTankGraphics(randomLevelGenerator);
+        List<Tank> tanks = randomLevelGenerator.getTanks();
+        for (Tank tank : tanks) {
+            TankGraphics tankGraphics = new TankGraphics(tank, tankTexture, renderer.getTileMovement());
+            renderer.addDrawableObject(tankGraphics);
+        }
+    }
+
+    private void generatePlayerTankGraphics(LevelGenerator randomLevelGenerator) {
+        Tank playerTank = randomLevelGenerator.getPlayerTank();
+        TankGraphics tankGraphics = new TankGraphics(playerTank, tankTexture, renderer.getTileMovement());
         renderer.addDrawableObject(tankGraphics);
     }
 

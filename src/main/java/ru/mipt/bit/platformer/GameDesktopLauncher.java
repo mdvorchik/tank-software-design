@@ -4,7 +4,7 @@ import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 import com.badlogic.gdx.graphics.Texture;
-import ru.mipt.bit.platformer.generator.FromFileLevelGenerator;
+import ru.mipt.bit.platformer.generator.impl.FromFileLevelGenerator;
 import ru.mipt.bit.platformer.generator.LevelGenerator;
 import ru.mipt.bit.platformer.generator.RendererBuilder;
 import ru.mipt.bit.platformer.graphics.Renderer;

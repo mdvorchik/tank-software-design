@@ -11,5 +11,7 @@ public interface LevelGenerator {
 
     List<Tree> getTrees();
 
-    Tank getTank();
+    List<Tank> getTanks();
+
+    Tank getPlayerTank();
 }

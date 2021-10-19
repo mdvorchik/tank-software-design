@@ -25,11 +25,8 @@ public class Tank implements Collidable {
     }
 
 
-    public boolean canMoveInThisTick() {
-        return isEqual(playerMovementProgress, 1f);
-    }
-
     public void moveUp() {
+        if (!canMoveInThisTick()) return;
         playerDestinationCoordinates = incrementedY(playerDestinationCoordinates);
         if (isNotCollision()) {
             playerMovementProgress = 0f;
@@ -40,6 +37,7 @@ public class Tank implements Collidable {
     }
 
     public void moveLeft() {
+        if (!canMoveInThisTick()) return;
         playerDestinationCoordinates = decrementedX(playerDestinationCoordinates);
         if (isNotCollision()) {
             playerMovementProgress = 0f;
@@ -50,6 +48,7 @@ public class Tank implements Collidable {
     }
 
     public void moveDown() {
+        if (!canMoveInThisTick()) return;
         playerDestinationCoordinates = decrementedY(playerDestinationCoordinates);
         if (isNotCollision()) {
             playerMovementProgress = 0f;
@@ -60,6 +59,7 @@ public class Tank implements Collidable {
     }
 
     public void moveRight() {
+        if (!canMoveInThisTick()) return;
         playerDestinationCoordinates = incrementedX(playerDestinationCoordinates);
         if (isNotCollision()) {
             playerMovementProgress = 0f;
@@ -96,6 +96,10 @@ public class Tank implements Collidable {
 
     public float getPlayerRotation() {
         return playerRotation;
+    }
+
+    private boolean canMoveInThisTick() {
+        return isEqual(playerMovementProgress, 1f);
     }
 
     private boolean isNotCollision() {

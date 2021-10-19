@@ -1,6 +1,8 @@
 package ru.mipt.bit.platformer;
 
 import com.badlogic.gdx.Gdx;
+import ru.mipt.bit.platformer.ai.TankCommand;
+import ru.mipt.bit.platformer.ai.commands.*;
 import ru.mipt.bit.platformer.gameobjects.Tank;
 
 import static com.badlogic.gdx.Input.Keys.*;
@@ -13,26 +15,19 @@ public class InputProcessor {
         this.tank = tank;
     }
 
-    public void processInputs() {
+    public TankCommand processInputs() {
         if (Gdx.input.isKeyPressed(UP) || Gdx.input.isKeyPressed(W)) {
-            if (tank.canMoveInThisTick()) {
-                tank.moveUp();
-            }
+            return new TankMoveUpCommand(tank);
         }
         if (Gdx.input.isKeyPressed(LEFT) || Gdx.input.isKeyPressed(A)) {
-            if (tank.canMoveInThisTick()) {
-                tank.moveLeft();
-            }
+            return new TankMoveLeftCommand(tank);
         }
         if (Gdx.input.isKeyPressed(DOWN) || Gdx.input.isKeyPressed(S)) {
-            if (tank.canMoveInThisTick()) {
-                tank.moveDown();
-            }
+            return new TankMoveDownCommand(tank);
         }
         if (Gdx.input.isKeyPressed(RIGHT) || Gdx.input.isKeyPressed(D)) {
-            if (tank.canMoveInThisTick()) {
-                tank.moveRight();
-            }
+            return new TankMoveRightCommand(tank);
         }
+        return new TankStayCommand(tank);
     }
 }

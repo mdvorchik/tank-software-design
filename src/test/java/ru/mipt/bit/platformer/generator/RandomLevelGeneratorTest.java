@@ -3,6 +3,7 @@ package ru.mipt.bit.platformer.generator;
 import org.junit.Test;
 import ru.mipt.bit.platformer.gameobjects.Tank;
 import ru.mipt.bit.platformer.gameobjects.Tree;
+import ru.mipt.bit.platformer.generator.impl.RandomLevelGenerator;
 import ru.mipt.bit.platformer.physics.GameEngine;
 
 import java.util.List;
@@ -15,7 +16,7 @@ public class RandomLevelGeneratorTest {
     @Test
     public void getGameEngine() {
         //given
-        RandomLevelGenerator randomLevelGenerator = new RandomLevelGenerator(8, 10, 4);
+        RandomLevelGenerator randomLevelGenerator = new RandomLevelGenerator(8, 10, 4, 2);
         //when
         GameEngine gameEngine = randomLevelGenerator.getGameEngine();
         //verify
@@ -25,7 +26,7 @@ public class RandomLevelGeneratorTest {
     @Test
     public void getTrees() {
         //given
-        RandomLevelGenerator randomLevelGenerator = new RandomLevelGenerator(8, 10, 4);
+        RandomLevelGenerator randomLevelGenerator = new RandomLevelGenerator(8, 10, 4, 2);
         //when
         List<Tree> trees = randomLevelGenerator.getTrees();
         //verify
@@ -35,9 +36,9 @@ public class RandomLevelGeneratorTest {
     @Test
     public void getTank() {
         //given
-        RandomLevelGenerator randomLevelGenerator = new RandomLevelGenerator(8, 10, 4);
+        RandomLevelGenerator randomLevelGenerator = new RandomLevelGenerator(8, 10, 4, 2);
         //when
-        Tank tank = randomLevelGenerator.getTank();
+        Tank tank = randomLevelGenerator.getPlayerTank();
         //verify
         assertNotNull(tank);
     }

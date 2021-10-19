@@ -4,6 +4,7 @@ import com.badlogic.gdx.math.GridPoint2;
 import org.junit.Test;
 import ru.mipt.bit.platformer.gameobjects.Tank;
 import ru.mipt.bit.platformer.gameobjects.Tree;
+import ru.mipt.bit.platformer.generator.impl.FromFileLevelGenerator;
 import ru.mipt.bit.platformer.physics.GameEngine;
 
 import java.util.ArrayList;
@@ -45,7 +46,7 @@ public class FromFileLevelGeneratorTest {
         FromFileLevelGenerator fromFileLevelGenerator = new FromFileLevelGenerator("src/test/resources/test_level.txt");
         GridPoint2 expectedCoordinate = new GridPoint2(1, 1);
         //when
-        Tank tank = fromFileLevelGenerator.getTank();
+        Tank tank = fromFileLevelGenerator.getPlayerTank();
         //verify
         assertEquals(expectedCoordinate, tank.getPlayerCoordinates());
     }

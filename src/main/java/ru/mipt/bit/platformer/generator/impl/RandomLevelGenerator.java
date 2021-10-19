@@ -1,9 +1,10 @@
-package ru.mipt.bit.platformer.generator;
+package ru.mipt.bit.platformer.generator.impl;
 
 import com.badlogic.gdx.math.GridPoint2;
-import ru.mipt.bit.platformer.InputProcessor;
 import ru.mipt.bit.platformer.gameobjects.Tank;
 import ru.mipt.bit.platformer.gameobjects.Tree;
+import ru.mipt.bit.platformer.generator.LevelGenerator;
+import ru.mipt.bit.platformer.generator.ObjectsByCoordinatesCreator;
 import ru.mipt.bit.platformer.physics.CollisionChecker;
 import ru.mipt.bit.platformer.physics.GameEngine;
 
@@ -12,29 +13,24 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import static ru.mipt.bit.platformer.util.GdxGameUtils.incrementedY;
-
 public class RandomLevelGenerator implements LevelGenerator {
     private final GameEngine gameEngine;
-    private final List<Tree> trees = new ArrayList<>();
-    private final Tank tank;
+    private final List<Tree> trees;
+    private final List<Tank> tanks;
+    private final Tank playerTank;
 
-    public RandomLevelGenerator(int widthOfMap, int heightOfMap, int treesCount) {
+    public RandomLevelGenerator(int widthOfMap, int heightOfMap, int treesCount, int tankCount) {
         List<GridPoint2> treeCoordinatesList = new ArrayList<>(generateRandomCoordinates(treesCount, widthOfMap, heightOfMap));
-        List<GridPoint2> tankCoordinatesList = new ArrayList<>(generateRandomCoordinates(1, widthOfMap, heightOfMap));
-
+        List<GridPoint2> tankCoordinatesList = new ArrayList<>(generateRandomCoordinates(tankCount, widthOfMap, heightOfMap));
         CollisionChecker collisionChecker = new CollisionChecker(new ArrayList<>());
-        tank = new Tank(0.4f, collisionChecker, tankCoordinatesList.get(0), incrementedY((tankCoordinatesList.get(0))));
-        collisionChecker.addCollidable(tank);
-        InputProcessor inputProcessor = new InputProcessor(tank);
 
-        for (GridPoint2 treeCoordinates : treeCoordinatesList) {
-            trees.add(new Tree(treeCoordinates, 0f));
-        }
-        for (Tree tree : trees) {
-            collisionChecker.addCollidable(tree);
-        }
-        gameEngine = new GameEngine(inputProcessor, tank);
+        ObjectsByCoordinatesCreator creator = new ObjectsByCoordinatesCreator(tankCoordinatesList,
+                treeCoordinatesList, collisionChecker);
+        trees = creator.getTrees();
+        tanks = creator.getTanks();
+        playerTank = creator.getPlayerTank();
+
+        gameEngine = new GameEngine(playerTank, tanks);
     }
 
     public GameEngine getGameEngine() {
@@ -50,12 +46,19 @@ public class RandomLevelGenerator implements LevelGenerator {
         return randomGridPoint2Set;
     }
 
+    @Override
     public List<Tree> getTrees() {
         return trees;
     }
 
-    public Tank getTank() {
-        return tank;
+    @Override
+    public List<Tank> getTanks() {
+        return tanks;
+    }
+
+    @Override
+    public Tank getPlayerTank() {
+        return playerTank;
     }
 }
 
