@@ -14,11 +14,11 @@ public class GameEngine {
     private final Tank playerTank;
     private final List<Tank> tanks;
 
-    public GameEngine(Tank playerTank, List<Tank> tanks) {
+    public GameEngine(Tank playerTank, List<Tank> tanks, TanksCommandGenerator tanksCommandGenerator) {
         this.playerTank = playerTank;
         this.tanks = tanks;
         this.inputProcessor = new InputProcessor(playerTank);
-        this.tanksCommandGenerator = new TanksCommandGenerator(tanks);
+        this.tanksCommandGenerator = tanksCommandGenerator;
     }
 
     public void doCalculations() {

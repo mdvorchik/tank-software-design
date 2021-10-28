@@ -1,6 +1,7 @@
 package ru.mipt.bit.platformer.generator.impl;
 
 import com.badlogic.gdx.math.GridPoint2;
+import ru.mipt.bit.platformer.ai.internal.TanksCommandGeneratorImpl;
 import ru.mipt.bit.platformer.gameobjects.Tank;
 import ru.mipt.bit.platformer.gameobjects.Tree;
 import ru.mipt.bit.platformer.generator.LevelGenerator;
@@ -31,7 +32,7 @@ public class RandomLevelGenerator implements LevelGenerator {
         tanks = creator.getTanks();
         playerTank = creator.getPlayerTank();
 
-        gameEngine = new GameEngine(playerTank, tanks);
+        gameEngine = new GameEngine(playerTank, tanks, new TanksCommandGeneratorImpl(tanks));
     }
 
     public GameEngine getGameEngine() {
