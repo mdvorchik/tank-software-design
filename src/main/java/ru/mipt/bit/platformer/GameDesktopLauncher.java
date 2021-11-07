@@ -4,9 +4,11 @@ import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 import com.badlogic.gdx.graphics.Texture;
-import ru.mipt.bit.platformer.generator.impl.FromFileLevelGenerator;
+import ru.mipt.bit.platformer.ai.internal.TanksCommandGeneratorImpl;
+import ru.mipt.bit.platformer.generator.Level;
 import ru.mipt.bit.platformer.generator.LevelGenerator;
 import ru.mipt.bit.platformer.generator.RendererBuilder;
+import ru.mipt.bit.platformer.generator.impl.FromFileLevelGenerator;
 import ru.mipt.bit.platformer.graphics.Renderer;
 import ru.mipt.bit.platformer.physics.GameEngine;
 
@@ -28,8 +30,9 @@ public class GameDesktopLauncher implements ApplicationListener {
     public void create() {
 //        LevelGenerator levelGenerator = new RandomLevelGenerator(10, 8, 4);
         LevelGenerator levelGenerator = new FromFileLevelGenerator("src/main/resources/level.txt");
+        Level level = levelGenerator.getLevel();
         rendererBuilder = new RendererBuilder("level.tmx", "images/tank_blue.png", "images/greenTree.png");
-        gameEngine = levelGenerator.getGameEngine();
+        gameEngine = new GameEngine(level.getPlayerTank(), level.getTanks(), new TanksCommandGeneratorImpl(level.getTanks()));
         renderer = rendererBuilder.generateRenderer(levelGenerator);
     }
 

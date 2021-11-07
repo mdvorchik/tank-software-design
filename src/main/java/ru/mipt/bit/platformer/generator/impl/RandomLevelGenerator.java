@@ -1,13 +1,10 @@
 package ru.mipt.bit.platformer.generator.impl;
 
 import com.badlogic.gdx.math.GridPoint2;
-import ru.mipt.bit.platformer.ai.internal.TanksCommandGeneratorImpl;
-import ru.mipt.bit.platformer.gameobjects.Tank;
-import ru.mipt.bit.platformer.gameobjects.Tree;
+import ru.mipt.bit.platformer.generator.Level;
 import ru.mipt.bit.platformer.generator.LevelGenerator;
 import ru.mipt.bit.platformer.generator.ObjectsByCoordinatesCreator;
 import ru.mipt.bit.platformer.physics.CollisionChecker;
-import ru.mipt.bit.platformer.physics.GameEngine;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -15,10 +12,7 @@ import java.util.List;
 import java.util.Set;
 
 public class RandomLevelGenerator implements LevelGenerator {
-    private final GameEngine gameEngine;
-    private final List<Tree> trees;
-    private final List<Tank> tanks;
-    private final Tank playerTank;
+    private final Level level;
 
     public RandomLevelGenerator(int widthOfMap, int heightOfMap, int treesCount, int tankCount) {
         List<GridPoint2> treeCoordinatesList = new ArrayList<>(generateRandomCoordinates(treesCount, widthOfMap, heightOfMap));
@@ -28,15 +22,7 @@ public class RandomLevelGenerator implements LevelGenerator {
 
         ObjectsByCoordinatesCreator creator = new ObjectsByCoordinatesCreator(tankCoordinatesList,
                 treeCoordinatesList, levelBorders, collisionChecker);
-        trees = creator.getTrees();
-        tanks = creator.getTanks();
-        playerTank = creator.getPlayerTank();
-
-        gameEngine = new GameEngine(playerTank, tanks, new TanksCommandGeneratorImpl(tanks));
-    }
-
-    public GameEngine getGameEngine() {
-        return gameEngine;
+        level = new Level(creator.getPlayerTank(), creator.getTrees(), creator.getTanks());
     }
 
     private Set<GridPoint2> createBorderCoordinates(int width, int height) {
@@ -66,18 +52,8 @@ public class RandomLevelGenerator implements LevelGenerator {
     }
 
     @Override
-    public List<Tree> getTrees() {
-        return trees;
-    }
-
-    @Override
-    public List<Tank> getTanks() {
-        return tanks;
-    }
-
-    @Override
-    public Tank getPlayerTank() {
-        return playerTank;
+    public Level getLevel() {
+        return level;
     }
 }
 

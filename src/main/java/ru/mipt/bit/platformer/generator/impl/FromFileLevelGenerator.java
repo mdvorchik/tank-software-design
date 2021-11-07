@@ -1,22 +1,16 @@
 package ru.mipt.bit.platformer.generator.impl;
 
 import com.badlogic.gdx.math.GridPoint2;
-import ru.mipt.bit.platformer.ai.internal.TanksCommandGeneratorImpl;
-import ru.mipt.bit.platformer.gameobjects.Tank;
-import ru.mipt.bit.platformer.gameobjects.Tree;
+import ru.mipt.bit.platformer.generator.Level;
 import ru.mipt.bit.platformer.generator.LevelGenerator;
 import ru.mipt.bit.platformer.generator.ObjectsByCoordinatesCreator;
 import ru.mipt.bit.platformer.physics.CollisionChecker;
-import ru.mipt.bit.platformer.physics.GameEngine;
 
 import java.io.FileReader;
 import java.util.*;
 
 public class FromFileLevelGenerator implements LevelGenerator {
-    private final GameEngine gameEngine;
-    private final List<Tree> trees;
-    private final List<Tank> tanks;
-    private final Tank playerTank;
+    private final Level level;
 
     public FromFileLevelGenerator(String fileName) {
         List<GridPoint2> treeCoordinatesList = new ArrayList<>(readCoordinatesOf(fileName, "T"));
@@ -26,11 +20,7 @@ public class FromFileLevelGenerator implements LevelGenerator {
 
         ObjectsByCoordinatesCreator creator = new ObjectsByCoordinatesCreator(tankCoordinatesList,
                 treeCoordinatesList, levelBordersList, collisionChecker);
-        trees = creator.getTrees();
-        tanks = creator.getTanks();
-        playerTank = creator.getPlayerTank();
-
-        gameEngine = new GameEngine(playerTank, tanks, new TanksCommandGeneratorImpl(tanks));
+        level = new Level(creator.getPlayerTank(), creator.getTrees(), creator.getTanks());
     }
 
     private Set<GridPoint2> readCoordinatesOf(String fileName) {
@@ -52,10 +42,6 @@ public class FromFileLevelGenerator implements LevelGenerator {
             levelBorders.add(new GridPoint2(j, height));
         }
         return levelBorders;
-    }
-
-    public GameEngine getGameEngine() {
-        return gameEngine;
     }
 
     private Set<GridPoint2> readCoordinatesOf(String fileName, String sign) {
@@ -88,17 +74,7 @@ public class FromFileLevelGenerator implements LevelGenerator {
     }
 
     @Override
-    public List<Tree> getTrees() {
-        return trees;
-    }
-
-    @Override
-    public List<Tank> getTanks() {
-        return tanks;
-    }
-
-    @Override
-    public Tank getPlayerTank() {
-        return playerTank;
+    public Level getLevel() {
+        return level;
     }
 }
