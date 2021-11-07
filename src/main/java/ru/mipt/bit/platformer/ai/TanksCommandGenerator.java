@@ -1,5 +1,7 @@
 package ru.mipt.bit.platformer.ai;
 
+import java.util.List;
+
 public interface TanksCommandGenerator {
-    TankCommand generateCommand();
+    List<TankCommand> generateCommands(float deltaTime);
 }

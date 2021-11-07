@@ -2,6 +2,7 @@ package ru.mipt.bit.platformer.physics;
 
 import com.badlogic.gdx.Gdx;
 import ru.mipt.bit.platformer.InputProcessor;
+import ru.mipt.bit.platformer.ai.TankCommand;
 import ru.mipt.bit.platformer.ai.TanksCommandGenerator;
 import ru.mipt.bit.platformer.gameobjects.Tank;
 
@@ -23,7 +24,7 @@ public class GameEngine {
 
     public void doCalculations() {
         processInputs();
-        processCommandsFromGenerator();
+        processCommandsFromGenerator(getDeltaTime());
         processPlayerMovementProgress(getDeltaTime());
         processTanksMovementProgress(getDeltaTime());
     }
@@ -32,8 +33,10 @@ public class GameEngine {
         inputProcessor.processInputs().execute();
     }
 
-    private void processCommandsFromGenerator() {
-        tanksCommandGenerator.generateCommand().execute();
+    private void processCommandsFromGenerator(float deltaTime) {
+        for (TankCommand command : tanksCommandGenerator.generateCommands(deltaTime)) {
+            command.execute();
+        }
     }
 
     private void processPlayerMovementProgress(float deltaTime) {
