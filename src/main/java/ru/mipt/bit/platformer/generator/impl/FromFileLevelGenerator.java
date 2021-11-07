@@ -10,17 +10,11 @@ import java.io.FileReader;
 import java.util.*;
 
 public class FromFileLevelGenerator implements LevelGenerator {
-    private final Level level;
+    private final String fileName;
+    private Level level;
 
     public FromFileLevelGenerator(String fileName) {
-        List<GridPoint2> treeCoordinatesList = new ArrayList<>(readCoordinatesOf(fileName, "T"));
-        List<GridPoint2> tankCoordinatesList = new ArrayList<>(readCoordinatesOf(fileName, "X"));
-        List<GridPoint2> levelBordersList = new ArrayList<>(readCoordinatesOf(fileName));
-        CollisionChecker collisionChecker = new CollisionChecker(new ArrayList<>());
-
-        ObjectsByCoordinatesCreator creator = new ObjectsByCoordinatesCreator(tankCoordinatesList,
-                treeCoordinatesList, levelBordersList, collisionChecker);
-        level = new Level(creator.getPlayerTank(), creator.getTrees(), creator.getTanks());
+        this.fileName = fileName;
     }
 
     private Set<GridPoint2> readCoordinatesOf(String fileName) {
@@ -75,6 +69,16 @@ public class FromFileLevelGenerator implements LevelGenerator {
 
     @Override
     public Level getLevel() {
+        if (level == null) {
+            List<GridPoint2> treeCoordinatesList = new ArrayList<>(readCoordinatesOf(fileName, "T"));
+            List<GridPoint2> tankCoordinatesList = new ArrayList<>(readCoordinatesOf(fileName, "X"));
+            List<GridPoint2> levelBordersList = new ArrayList<>(readCoordinatesOf(fileName));
+            CollisionChecker collisionChecker = new CollisionChecker(new ArrayList<>());
+
+            ObjectsByCoordinatesCreator creator = new ObjectsByCoordinatesCreator(tankCoordinatesList,
+                    treeCoordinatesList, levelBordersList, collisionChecker);
+            level = new Level(creator.getPlayerTank(), creator.getTrees(), creator.getTanks());
+        }
         return level;
     }
 }
