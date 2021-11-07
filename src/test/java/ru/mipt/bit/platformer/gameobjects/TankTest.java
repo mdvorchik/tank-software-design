@@ -2,6 +2,7 @@ package ru.mipt.bit.platformer.gameobjects;
 
 import com.badlogic.gdx.math.GridPoint2;
 import org.junit.Test;
+import ru.mipt.bit.platformer.direction.Direction;
 import ru.mipt.bit.platformer.physics.CollisionChecker;
 
 import java.util.ArrayList;
@@ -17,10 +18,10 @@ public class TankTest {
         Tank tank = new Tank(0.4f, collisionChecker, new GridPoint2(1, 0), new GridPoint2(1, 0));
         collisionChecker.addCollidable(tank);
         //when
-        tank.moveUp();
+        tank.move(Direction.UP);
         //verify
-        assertEquals(new GridPoint2(1, 1), tank.getPlayerDestinationCoordinates());
-        assertEquals(90f, tank.getPlayerRotation(), 0.1f);
+        assertEquals(new GridPoint2(1, 1), tank.getTankDestinationCoordinates());
+        assertEquals(90f, tank.getTankRotation(), 0.1f);
     }
 
     @Test
@@ -32,10 +33,10 @@ public class TankTest {
         collisionChecker.addCollidable(tree);
         collisionChecker.addCollidable(tank);
         //when
-        tank.moveUp();
+        tank.move(Direction.UP);
         //verify
-        assertEquals(new GridPoint2(1, 0), tank.getPlayerDestinationCoordinates());
-        assertEquals(90f, tank.getPlayerRotation(), 0.1f);
+        assertEquals(new GridPoint2(1, 0), tank.getTankDestinationCoordinates());
+        assertEquals(90f, tank.getTankRotation(), 0.1f);
     }
 
     @Test
@@ -45,10 +46,10 @@ public class TankTest {
         Tank tank = new Tank(0.4f, collisionChecker, new GridPoint2(1, 0), new GridPoint2(1, 0));
         collisionChecker.addCollidable(tank);
         //when
-        tank.moveRight();
+        tank.move(Direction.RIGHT);
         //verify
-        assertEquals(new GridPoint2(2, 0), tank.getPlayerDestinationCoordinates());
-        assertEquals(0f, tank.getPlayerRotation(), 0.1f);
+        assertEquals(new GridPoint2(2, 0), tank.getTankDestinationCoordinates());
+        assertEquals(0f, tank.getTankRotation(), 0.1f);
     }
 
     @Test
@@ -60,10 +61,10 @@ public class TankTest {
         collisionChecker.addCollidable(tree);
         collisionChecker.addCollidable(tank);
         //when
-        tank.moveRight();
+        tank.move(Direction.RIGHT);
         //verify
-        assertEquals(new GridPoint2(1, 0), tank.getPlayerDestinationCoordinates());
-        assertEquals(0f, tank.getPlayerRotation(), 0.1f);
+        assertEquals(new GridPoint2(1, 0), tank.getTankDestinationCoordinates());
+        assertEquals(0f, tank.getTankRotation(), 0.1f);
     }
 
     @Test
@@ -73,10 +74,10 @@ public class TankTest {
         Tank tank = new Tank(0.4f, collisionChecker, new GridPoint2(1, 0), new GridPoint2(1, 0));
         collisionChecker.addCollidable(tank);
         //when
-        tank.moveDown();
+        tank.move(Direction.DOWN);
         //verify
-        assertEquals(new GridPoint2(1, -1), tank.getPlayerDestinationCoordinates());
-        assertEquals(-90f, tank.getPlayerRotation(), 0.1f);
+        assertEquals(new GridPoint2(1, -1), tank.getTankDestinationCoordinates());
+        assertEquals(-90f, tank.getTankRotation(), 0.1f);
     }
 
     @Test
@@ -88,10 +89,10 @@ public class TankTest {
         collisionChecker.addCollidable(tree);
         collisionChecker.addCollidable(tank);
         //when
-        tank.moveDown();
+        tank.move(Direction.DOWN);
         //verify
-        assertEquals(new GridPoint2(1, 0), tank.getPlayerDestinationCoordinates());
-        assertEquals(-90f, tank.getPlayerRotation(), 0.1f);
+        assertEquals(new GridPoint2(1, 0), tank.getTankDestinationCoordinates());
+        assertEquals(-90f, tank.getTankRotation(), 0.1f);
     }
 
     @Test
@@ -101,10 +102,10 @@ public class TankTest {
         Tank tank = new Tank(0.4f, collisionChecker, new GridPoint2(1, 0), new GridPoint2(1, 0));
         collisionChecker.addCollidable(tank);
         //when
-        tank.moveLeft();
+        tank.move(Direction.LEFT);
         //verify
-        assertEquals(new GridPoint2(0, 0), tank.getPlayerDestinationCoordinates());
-        assertEquals(-180f, tank.getPlayerRotation(), 0.1f);
+        assertEquals(new GridPoint2(0, 0), tank.getTankDestinationCoordinates());
+        assertEquals(-180f, tank.getTankRotation(), 0.1f);
     }
 
     @Test
@@ -116,9 +117,9 @@ public class TankTest {
         collisionChecker.addCollidable(tree);
         collisionChecker.addCollidable(tank);
         //when
-        tank.moveLeft();
+        tank.move(Direction.LEFT);
         //verify
-        assertEquals(new GridPoint2(1, 0), tank.getPlayerDestinationCoordinates());
-        assertEquals(-180f, tank.getPlayerRotation(), 0.1f);
+        assertEquals(new GridPoint2(1, 0), tank.getTankDestinationCoordinates());
+        assertEquals(-180f, tank.getTankRotation(), 0.1f);
     }
 }

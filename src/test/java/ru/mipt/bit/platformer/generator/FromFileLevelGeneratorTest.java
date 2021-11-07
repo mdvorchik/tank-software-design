@@ -50,6 +50,6 @@ public class FromFileLevelGeneratorTest {
         //when
         Tank tank = fromFileLevelGenerator.getLevel().getPlayerTank();
         //verify
-        assertEquals(expectedCoordinate, tank.getPlayerCoordinates());
+        assertEquals(expectedCoordinate, tank.getTankCoordinates());
     }
 }

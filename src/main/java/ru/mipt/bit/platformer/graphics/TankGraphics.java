@@ -27,12 +27,12 @@ public class TankGraphics implements GDXDrawable {
 
     @Override
     public void drawTexture(Batch batch) {
-        drawTextureRegionUnscaled(batch, textureRegion, rectangle, tank.getPlayerRotation());
+        drawTextureRegionUnscaled(batch, textureRegion, rectangle, tank.getTankRotation());
     }
 
     @Override
     public void drawMovement() {
-        rectangle = tileMovement.moveRectangleBetweenTileCenters(rectangle, tank.getPlayerCoordinates(),
-                tank.getPlayerDestinationCoordinates(), tank.getPlayerMovementProgress());
+        rectangle = tileMovement.moveRectangleBetweenTileCenters(rectangle, tank.getTankCoordinates(),
+                tank.getTankDestinationCoordinates(), tank.getTankMovementProgress());
     }
 }

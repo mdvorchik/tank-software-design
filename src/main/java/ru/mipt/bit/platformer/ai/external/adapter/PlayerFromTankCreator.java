@@ -7,11 +7,11 @@ public class PlayerFromTankCreator {
     public Player createPlayer(Tank player, OrientationFromCoordinatesCreator orientationCreator) {
         return new Player.PlayerBuilder()
                 .source(player)
-                .x(player.getPlayerCoordinates().x)
-                .y(player.getPlayerCoordinates().y)
-                .destX(player.getPlayerDestinationCoordinates().x)
-                .destY(player.getPlayerDestinationCoordinates().y)
-                .orientation(orientationCreator.createOrientation(player.getPlayerCoordinates(), player.getPlayerDestinationCoordinates()))
+                .x(player.getTankCoordinates().x)
+                .y(player.getTankCoordinates().y)
+                .destX(player.getTankDestinationCoordinates().x)
+                .destY(player.getTankDestinationCoordinates().y)
+                .orientation(orientationCreator.createOrientation(player.getTankCoordinates(), player.getTankDestinationCoordinates()))
                 .build();
     }
 }

@@ -7,11 +7,11 @@ public class BotFromTankCreator {
     public Bot createBot(Tank bot, OrientationFromCoordinatesCreator orientationCreator) {
         return new Bot.BotBuilder()
                 .source(bot)
-                .x(bot.getPlayerCoordinates().x)
-                .y(bot.getPlayerCoordinates().y)
-                .destX(bot.getPlayerDestinationCoordinates().x)
-                .destY(bot.getPlayerDestinationCoordinates().y)
-                .orientation(orientationCreator.createOrientation(bot.getPlayerCoordinates(), bot.getPlayerDestinationCoordinates()))
+                .x(bot.getTankCoordinates().x)
+                .y(bot.getTankCoordinates().y)
+                .destX(bot.getTankDestinationCoordinates().x)
+                .destY(bot.getTankDestinationCoordinates().y)
+                .orientation(orientationCreator.createOrientation(bot.getTankCoordinates(), bot.getTankDestinationCoordinates()))
                 .build();
 
     }
