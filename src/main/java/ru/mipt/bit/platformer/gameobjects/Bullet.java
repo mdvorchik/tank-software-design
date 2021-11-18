@@ -59,10 +59,8 @@ public class Bullet implements Collidable {
     public void processMovementProgress(float deltaTime) {
         if (!isNotCollision()) return;
         movementProgress = continueProgress(movementProgress, deltaTime, 1f);
-        System.out.println("Debug!" + movementProgress);
-        if (movementProgress - movementProgressCounter > 0.5f) {
-            System.out.println("Debug!");
-            movementProgressCounter += 1f;
+        if (movementProgress - movementProgressCounter > 0.2f) {
+            movementProgressCounter += 2f;
             coordinates.add(direction.getChangeVector());
         }
     }
