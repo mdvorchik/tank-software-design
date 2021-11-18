@@ -40,6 +40,7 @@ public class Bullet implements Collidable {
                 if (coordinateFromThisObject.equals(coordinateFromAnotherObject)) {
                     collidable.registerHarmfulCollision();
                     level.registerBulletDestruction(this);
+                    collisionChecker.removeCollidable(this);
                     return true;
                 }
             }
@@ -60,7 +61,7 @@ public class Bullet implements Collidable {
         if (!isNotCollision()) return;
         movementProgress = continueProgress(movementProgress, deltaTime, 1f);
         if (movementProgress - movementProgressCounter > 0.2f) {
-            movementProgressCounter += 2f;
+            movementProgressCounter += .2f;
             coordinates.add(direction.getChangeVector());
         }
     }

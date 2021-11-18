@@ -21,4 +21,8 @@ public class CollisionChecker {
         }
         return false;
     }
+
+    public void removeCollidable(Collidable collidable) {
+        collidables.remove(collidable);
+    }
 }

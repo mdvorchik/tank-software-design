@@ -10,14 +10,14 @@ import java.util.Collection;
 import java.util.Date;
 
 import static com.badlogic.gdx.math.MathUtils.isEqual;
-import static ru.mipt.bit.platformer.util.GdxGameUtils.*;
+import static ru.mipt.bit.platformer.util.GdxGameUtils.continueProgress;
 
 public class Tank implements Collidable {
-    private int health = 3;
     private final Level level;
     private final float movementSpeed;
     private final CollisionChecker collisionChecker;
     private final GridPoint2 tankCoordinates;
+    private int health = 3;
     private GridPoint2 tankDestinationCoordinates;
     private float tankMovementProgress = 1f;
     private float tankRotation;
@@ -78,6 +78,7 @@ public class Tank implements Collidable {
     public void registerHarmfulCollision() {
         health--;
         if (health <= 0) {
+            collisionChecker.removeCollidable(this);
             level.registerTankDestruction(this);
         }
     }

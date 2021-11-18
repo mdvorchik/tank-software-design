@@ -13,6 +13,7 @@ import ru.mipt.bit.platformer.graphics.TreeGraphics;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class RendererBuilder {
     private final Renderer renderer;
@@ -25,7 +26,7 @@ public class RendererBuilder {
                            String tankTextureFile,
                            String treeTextureFile,
                            String bulletTextureFile) {
-        renderer = new Renderer(this, new SpriteBatch(), new TmxMapLoader().load(levelConfigFileName), new ArrayList<>());
+        renderer = new Renderer(this, new SpriteBatch(), new TmxMapLoader().load(levelConfigFileName), new CopyOnWriteArrayList<>());
         tankTexture = new Texture(tankTextureFile);
         textures.add(tankTexture);
         treeTexture = new Texture(treeTextureFile);
