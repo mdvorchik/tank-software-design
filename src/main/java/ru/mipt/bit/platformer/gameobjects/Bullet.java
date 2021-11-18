@@ -12,6 +12,7 @@ import static ru.mipt.bit.platformer.util.GdxGameUtils.continueProgress;
 
 public class Bullet implements Collidable {
     private final Level level;
+    private final Tank tank;
     private final CollisionChecker collisionChecker;
     private final Direction direction;
     private final GridPoint2 coordinates;
@@ -23,6 +24,7 @@ public class Bullet implements Collidable {
     public Bullet(CollisionChecker collisionChecker, Level level, Tank tank, Direction direction) {
         this.collisionChecker = collisionChecker;
         this.level = level;
+        this.tank = tank;
         GridPoint2 tempCoordinate = new GridPoint2(tank.getTankCoordinates());
         tempCoordinate.add(direction.getChangeVector());
         this.coordinates = tempCoordinate;
@@ -38,7 +40,9 @@ public class Bullet implements Collidable {
         for (GridPoint2 coordinateFromThisObject : this.getCoordinateList()) {
             for (GridPoint2 coordinateFromAnotherObject : collidable.getCoordinateList()) {
                 if (coordinateFromThisObject.equals(coordinateFromAnotherObject)) {
-                    collidable.registerHarmfulCollision();
+                    if (collidable != tank) {
+                        collidable.registerHarmfulCollision();
+                    }
                     level.registerBulletDestruction(this);
                     collisionChecker.removeCollidable(this);
                     return true;

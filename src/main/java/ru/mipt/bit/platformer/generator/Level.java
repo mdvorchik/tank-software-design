@@ -8,12 +8,14 @@ import ru.mipt.bit.platformer.gameobjects.Tank;
 import ru.mipt.bit.platformer.gameobjects.Tree;
 
 import java.util.*;
+import java.util.concurrent.ConcurrentLinkedDeque;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class Level implements EventPublisher {
     private Tank playerTank = null;
-    private final List<Tree> trees = new ArrayList<>();
-    private final List<Tank> tanks = new ArrayList<>();
-    private final Queue<Bullet> bullets = new ArrayDeque<>();
+    private final List<Tree> trees = new CopyOnWriteArrayList<>();
+    private final List<Tank> tanks = new CopyOnWriteArrayList<>();
+    private final Queue<Bullet> bullets = new ConcurrentLinkedDeque<>();
     private final Map<EventType, List<EventListener>> listeners = new HashMap<>();
 
     public Level(List<EventType> eventTypes) {
