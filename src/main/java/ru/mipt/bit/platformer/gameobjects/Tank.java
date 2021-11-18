@@ -7,6 +7,7 @@ import ru.mipt.bit.platformer.physics.CollisionChecker;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Date;
 
 import static com.badlogic.gdx.math.MathUtils.isEqual;
 import static ru.mipt.bit.platformer.util.GdxGameUtils.*;
@@ -21,6 +22,7 @@ public class Tank implements Collidable {
     private float tankMovementProgress = 1f;
     private float tankRotation;
     private Direction lastDirection = Direction.UP;
+    private long lastShoot = new Date().getTime();
 
     public Tank(Level level, float movementSpeed, CollisionChecker collisionChecker, GridPoint2 playerCoordinates, GridPoint2 playerDestinationCoordinates) {
         this.level = level;
@@ -44,9 +46,19 @@ public class Tank implements Collidable {
     }
 
     public void shoot() {
+        if (!canChootInThisTick()) return;
         Bullet bullet = new Bullet(level, this, lastDirection);
         level.registerBulletCreation(bullet);
         collisionChecker.addCollidable(bullet);
+    }
+
+    private boolean canChootInThisTick() {
+        long nowDate = new Date().getTime();
+        if (nowDate - lastShoot > 1000) {
+            lastShoot = nowDate;
+            return true;
+        }
+        return false;
     }
 
     public void processMovementProgress(float deltaTime) {

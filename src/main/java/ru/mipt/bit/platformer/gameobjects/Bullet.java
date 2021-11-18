@@ -20,8 +20,10 @@ public class Bullet implements Collidable {
 
     public Bullet(Level level, Tank tank, Direction direction) {
         this.level = level;
-        this.coordinates = tank.getTankCoordinates().add(direction.getChangeVector());
-        this.destCoordinates = this.coordinates;
+        GridPoint2 tempCoordinate = new GridPoint2(tank.getTankCoordinates());
+        tempCoordinate.add(direction.getChangeVector());
+        this.coordinates = tempCoordinate;
+        this.destCoordinates = new GridPoint2(this.coordinates);
         this.rotation = tank.getTankRotation();
         this.direction = direction;
         this.destCoordinates.x += direction.getChangeVector().x * 15;
@@ -32,7 +34,7 @@ public class Bullet implements Collidable {
     public boolean checkCollision(Collidable collidable) {
         for (GridPoint2 coordinateFromThisObject : this.getCoordinateList()) {
             for (GridPoint2 coordinateFromAnotherObject : collidable.getCoordinateList()) {
-                if (coordinateFromThisObject.equals(coordinateFromAnotherObject)) {
+                if (coordinateFromThisObject.equals(coordinateFromAnotherObject) && this != collidable) {
                     collidable.registerHarmfulCollision();
                     level.registerBulletDestruction(this);
                     return true;
