@@ -25,6 +25,7 @@ public class GameEngine {
         processCommandsFromGenerator(getDeltaTime());
         processPlayerMovementProgress(getDeltaTime());
         processTanksMovementProgress(getDeltaTime());
+        processBulletsMovementProgress(getDeltaTime());
     }
 
     private void processInputs() {

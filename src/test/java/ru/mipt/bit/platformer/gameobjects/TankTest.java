@@ -15,7 +15,7 @@ public class TankTest {
     public void tankCanRotateAndMoveUpWhenNoObstacleOnTop() {
         //given
         CollisionChecker collisionChecker = new CollisionChecker(new ArrayList<>());
-        Tank tank = new Tank(0.4f, collisionChecker, new GridPoint2(1, 0), new GridPoint2(1, 0));
+        Tank tank = new Tank(null,.4f, collisionChecker, new GridPoint2(1, 0), new GridPoint2(1, 0));
         collisionChecker.addCollidable(tank);
         //when
         tank.move(Direction.UP);
@@ -29,7 +29,7 @@ public class TankTest {
         //given
         CollisionChecker collisionChecker = new CollisionChecker(new ArrayList<>());
         Tree tree = new Tree(new GridPoint2(1, 1), 0f);
-        Tank tank = new Tank(0.4f, collisionChecker, new GridPoint2(1, 0), new GridPoint2(1, 0));
+        Tank tank = new Tank(null,.4f, collisionChecker, new GridPoint2(1, 0), new GridPoint2(1, 0));
         collisionChecker.addCollidable(tree);
         collisionChecker.addCollidable(tank);
         //when
@@ -43,7 +43,7 @@ public class TankTest {
     public void tankCanRotateAndMoveRightWhenNoObstacleOnRight() {
         //given
         CollisionChecker collisionChecker = new CollisionChecker(new ArrayList<>());
-        Tank tank = new Tank(0.4f, collisionChecker, new GridPoint2(1, 0), new GridPoint2(1, 0));
+        Tank tank = new Tank(null,0.4f, collisionChecker, new GridPoint2(1, 0), new GridPoint2(1, 0));
         collisionChecker.addCollidable(tank);
         //when
         tank.move(Direction.RIGHT);
@@ -57,7 +57,7 @@ public class TankTest {
         //given
         CollisionChecker collisionChecker = new CollisionChecker(new ArrayList<>());
         Tree tree = new Tree(new GridPoint2(2, 0), 0f);
-        Tank tank = new Tank(0.4f, collisionChecker, new GridPoint2(1, 0), new GridPoint2(1, 0));
+        Tank tank = new Tank(null,0.4f, collisionChecker, new GridPoint2(1, 0), new GridPoint2(1, 0));
         collisionChecker.addCollidable(tree);
         collisionChecker.addCollidable(tank);
         //when
@@ -71,7 +71,7 @@ public class TankTest {
     public void tankCanRotateAndMoveDownWhenNoObstacleBelow() {
         //given
         CollisionChecker collisionChecker = new CollisionChecker(new ArrayList<>());
-        Tank tank = new Tank(0.4f, collisionChecker, new GridPoint2(1, 0), new GridPoint2(1, 0));
+        Tank tank = new Tank(null,0.4f, collisionChecker, new GridPoint2(1, 0), new GridPoint2(1, 0));
         collisionChecker.addCollidable(tank);
         //when
         tank.move(Direction.DOWN);
@@ -85,7 +85,7 @@ public class TankTest {
         //given
         CollisionChecker collisionChecker = new CollisionChecker(new ArrayList<>());
         Tree tree = new Tree(new GridPoint2(1, -1), 0f);
-        Tank tank = new Tank(0.4f, collisionChecker, new GridPoint2(1, 0), new GridPoint2(1, 0));
+        Tank tank = new Tank(null,0.4f, collisionChecker, new GridPoint2(1, 0), new GridPoint2(1, 0));
         collisionChecker.addCollidable(tree);
         collisionChecker.addCollidable(tank);
         //when
@@ -99,7 +99,7 @@ public class TankTest {
     public void tankCanRotateAndMoveLeftWhenNoObstacleOnLeft() {
         //given
         CollisionChecker collisionChecker = new CollisionChecker(new ArrayList<>());
-        Tank tank = new Tank(0.4f, collisionChecker, new GridPoint2(1, 0), new GridPoint2(1, 0));
+        Tank tank = new Tank(null,0.4f, collisionChecker, new GridPoint2(1, 0), new GridPoint2(1, 0));
         collisionChecker.addCollidable(tank);
         //when
         tank.move(Direction.LEFT);
@@ -113,7 +113,7 @@ public class TankTest {
         //given
         CollisionChecker collisionChecker = new CollisionChecker(new ArrayList<>());
         Tree tree = new Tree(new GridPoint2(0, 0), 0f);
-        Tank tank = new Tank(0.4f, collisionChecker, new GridPoint2(1, 0), new GridPoint2(1, 0));
+        Tank tank = new Tank(null,0.4f, collisionChecker, new GridPoint2(1, 0), new GridPoint2(1, 0));
         collisionChecker.addCollidable(tree);
         collisionChecker.addCollidable(tank);
         //when

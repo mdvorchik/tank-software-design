@@ -20,7 +20,7 @@ public class Tank implements Collidable {
     private GridPoint2 tankDestinationCoordinates;
     private float tankMovementProgress = 1f;
     private float tankRotation;
-    private Direction lastDirection;
+    private Direction lastDirection = Direction.UP;
 
     public Tank(Level level, float movementSpeed, CollisionChecker collisionChecker, GridPoint2 playerCoordinates, GridPoint2 playerDestinationCoordinates) {
         this.level = level;

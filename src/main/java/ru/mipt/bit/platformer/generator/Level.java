@@ -10,17 +10,26 @@ import ru.mipt.bit.platformer.gameobjects.Tree;
 import java.util.*;
 
 public class Level implements EventPublisher {
-    private final Tank playerTank;
-    private final List<Tree> trees;
-    private final List<Tank> tanks;
+    private Tank playerTank = null;
+    private final List<Tree> trees = new ArrayList<>();
+    private final List<Tank> tanks = new ArrayList<>();
     private final Queue<Bullet> bullets = new ArrayDeque<>();
     private final Map<EventType, List<EventListener>> listeners = new HashMap<>();
 
-    public Level(Tank playerTank, List<Tree> trees, List<Tank> tanks, List<EventType> eventTypes) {
-        this.playerTank = playerTank;
-        this.trees = trees;
-        this.tanks = tanks;
+    public Level(List<EventType> eventTypes) {
         eventTypes.forEach(event -> listeners.put(event, new ArrayList<>()));
+    }
+
+    public void addAllTanks(List<Tank> tanks) {
+        this.tanks.addAll(tanks);
+    }
+
+    public void addAllTrees(List<Tree> trees) {
+        this.trees.addAll(trees);
+    }
+
+    public void addPlayerTank(Tank tank) {
+        this.playerTank = tank;
     }
 
     public List<Tree> getTrees() {

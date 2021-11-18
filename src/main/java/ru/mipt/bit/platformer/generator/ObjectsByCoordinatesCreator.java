@@ -14,8 +14,8 @@ public class ObjectsByCoordinatesCreator {
     private final List<GridPoint2> tankCoordinatesList;
     private final List<GridPoint2> treeCoordinatesList;
     private final CollisionChecker collisionChecker;
-
     private final Level level;
+
     private final List<Tank> tanks = new ArrayList<>();
     private final List<Tree> trees = new ArrayList<>();
     private final Tank playerTank;

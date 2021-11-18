@@ -2,6 +2,7 @@ package ru.mipt.bit.platformer.generator.impl;
 
 import com.badlogic.gdx.math.GridPoint2;
 import ru.mipt.bit.platformer.event.EventType;
+import ru.mipt.bit.platformer.gameobjects.Tank;
 import ru.mipt.bit.platformer.generator.Level;
 import ru.mipt.bit.platformer.generator.LevelGenerator;
 import ru.mipt.bit.platformer.generator.ObjectsByCoordinatesCreator;
@@ -76,14 +77,17 @@ public class FromFileLevelGenerator implements LevelGenerator {
             List<GridPoint2> levelBordersList = new ArrayList<>(readCoordinatesOf(fileName));
             CollisionChecker collisionChecker = new CollisionChecker(new ArrayList<>());
 
-            ObjectsByCoordinatesCreator creator = new ObjectsByCoordinatesCreator(level, tankCoordinatesList,
-                    treeCoordinatesList, levelBordersList, collisionChecker);
 
             List<EventType> eventTypes = new ArrayList<>();
             eventTypes.add(EventType.ADD_BULLET);
             eventTypes.add(EventType.REMOVE_BULLET);
             eventTypes.add(EventType.REMOVE_TANK);
-            level = new Level(creator.getPlayerTank(), creator.getTrees(), creator.getTanks(), eventTypes);
+            level = new Level(eventTypes);
+            ObjectsByCoordinatesCreator creator = new ObjectsByCoordinatesCreator(level, tankCoordinatesList,
+                    treeCoordinatesList, levelBordersList, collisionChecker);
+            level.addPlayerTank(creator.getPlayerTank());
+            level.addAllTrees(creator.getTrees());
+            level.addAllTanks(creator.getTanks());
         }
         return level;
     }

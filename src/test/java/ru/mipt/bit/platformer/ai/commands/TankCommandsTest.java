@@ -54,4 +54,16 @@ public class TankCommandsTest {
         Mockito.verify(mockTank, Mockito.times(1))
                 .move(Direction.LEFT);
     }
+
+    @Test
+    public void executeTankShootCommand() {
+        //given
+        Tank mockTank = Mockito.mock(Tank.class);
+        TankShootCommand command = new TankShootCommand(mockTank);
+        //when
+        command.execute();
+        //verify
+        Mockito.verify(mockTank, Mockito.times(1))
+                .shoot();
+    }
 }

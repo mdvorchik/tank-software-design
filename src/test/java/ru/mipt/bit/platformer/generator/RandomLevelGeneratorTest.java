@@ -20,7 +20,7 @@ public class RandomLevelGeneratorTest {
         RandomLevelGenerator randomLevelGenerator = new RandomLevelGenerator(8, 10, 4, 2);
         Level level = randomLevelGenerator.getLevel();
         //when
-        GameEngine gameEngine = new GameEngine(level.getPlayerTank(), level.getTanks(), new TanksCommandGeneratorImpl(level.getTanks(), 2f));
+        GameEngine gameEngine = new GameEngine(level, new TanksCommandGeneratorImpl(level.getTanks(), 2f));
         //verify
         assertNotNull(gameEngine);
     }

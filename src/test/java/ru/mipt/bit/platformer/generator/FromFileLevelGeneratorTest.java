@@ -23,7 +23,7 @@ public class FromFileLevelGeneratorTest {
         FromFileLevelGenerator fromFileLevelGenerator = new FromFileLevelGenerator("src/test/resources/test_level.txt");
         Level level = fromFileLevelGenerator.getLevel();
         //when
-        GameEngine gameEngine = new GameEngine(level.getPlayerTank(), level.getTanks(), new TanksCommandGeneratorImpl(level.getTanks(), 2f));
+        GameEngine gameEngine = new GameEngine(level, new TanksCommandGeneratorImpl(level.getTanks(), 2f));
         //verify
         assertNotNull(gameEngine);
     }
