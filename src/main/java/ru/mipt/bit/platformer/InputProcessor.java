@@ -29,6 +29,9 @@ public class InputProcessor {
         if (Gdx.input.isKeyPressed(RIGHT) || Gdx.input.isKeyPressed(D)) {
             return new TankMoveCommand(tank, Direction.RIGHT);
         }
+        if (Gdx.input.isKeyPressed(SPACE)) {
+            return new TankShootCommand(tank);
+        }
         return new TankStayCommand(tank);
     }
 }
