@@ -59,7 +59,7 @@ public class RandomLevelGenerator implements LevelGenerator {
             List<GridPoint2> levelBorders = new ArrayList<>(createBorderCoordinates(widthOfMap, heightOfMap));
             CollisionChecker collisionChecker = new CollisionChecker(new ArrayList<>());
 
-            ObjectsByCoordinatesCreator creator = new ObjectsByCoordinatesCreator(tankCoordinatesList,
+            ObjectsByCoordinatesCreator creator = new ObjectsByCoordinatesCreator(level, tankCoordinatesList,
                     treeCoordinatesList, levelBorders, collisionChecker);
             level = new Level(creator.getPlayerTank(), creator.getTrees(), creator.getTanks());
         }

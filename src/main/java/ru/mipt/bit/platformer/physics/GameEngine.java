@@ -4,21 +4,19 @@ import com.badlogic.gdx.Gdx;
 import ru.mipt.bit.platformer.InputProcessor;
 import ru.mipt.bit.platformer.ai.TankCommand;
 import ru.mipt.bit.platformer.ai.TanksCommandGenerator;
+import ru.mipt.bit.platformer.gameobjects.Bullet;
 import ru.mipt.bit.platformer.gameobjects.Tank;
-
-import java.util.List;
+import ru.mipt.bit.platformer.generator.Level;
 
 public class GameEngine {
 
     private final InputProcessor inputProcessor;
+    private final Level level;
     private final TanksCommandGenerator tanksCommandGenerator;
-    private final Tank playerTank;
-    private final List<Tank> tanks;
 
-    public GameEngine(Tank playerTank, List<Tank> tanks, TanksCommandGenerator tanksCommandGenerator) {
-        this.playerTank = playerTank;
-        this.tanks = tanks;
-        this.inputProcessor = new InputProcessor(playerTank);
+    public GameEngine(Level level, TanksCommandGenerator tanksCommandGenerator) {
+        this.level = level;
+        this.inputProcessor = new InputProcessor(level.getPlayerTank());
         this.tanksCommandGenerator = tanksCommandGenerator;
     }
 
@@ -40,12 +38,18 @@ public class GameEngine {
     }
 
     private void processPlayerMovementProgress(float deltaTime) {
-        playerTank.processMovementProgress(deltaTime);
+        level.getPlayerTank().processMovementProgress(deltaTime);
     }
 
     private void processTanksMovementProgress(float deltaTime) {
-        for (Tank tank : tanks) {
+        for (Tank tank : level.getTanks()) {
             tank.processMovementProgress(deltaTime);
+        }
+    }
+
+    private void processBulletsMovementProgress(float deltaTime) {
+        for (Bullet bullet : level.getBullets()) {
+            bullet.processMovementProgress(deltaTime);
         }
     }
 

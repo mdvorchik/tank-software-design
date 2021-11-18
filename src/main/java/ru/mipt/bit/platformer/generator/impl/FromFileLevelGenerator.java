@@ -75,7 +75,7 @@ public class FromFileLevelGenerator implements LevelGenerator {
             List<GridPoint2> levelBordersList = new ArrayList<>(readCoordinatesOf(fileName));
             CollisionChecker collisionChecker = new CollisionChecker(new ArrayList<>());
 
-            ObjectsByCoordinatesCreator creator = new ObjectsByCoordinatesCreator(tankCoordinatesList,
+            ObjectsByCoordinatesCreator creator = new ObjectsByCoordinatesCreator(level, tankCoordinatesList,
                     treeCoordinatesList, levelBordersList, collisionChecker);
             level = new Level(creator.getPlayerTank(), creator.getTrees(), creator.getTanks());
         }

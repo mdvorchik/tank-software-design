@@ -14,5 +14,7 @@ public interface Collidable {
         return false;
     }
 
+    default void registerHarmfulCollision(){}
+
     Collection<GridPoint2> getCoordinateList();
 }

@@ -8,6 +8,8 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.Rectangle;
+import ru.mipt.bit.platformer.event.EventListener;
+import ru.mipt.bit.platformer.event.EventType;
 import ru.mipt.bit.platformer.util.GdxGameUtils;
 import ru.mipt.bit.platformer.util.TileMovement;
 
@@ -17,7 +19,7 @@ import static com.badlogic.gdx.graphics.GL20.GL_COLOR_BUFFER_BIT;
 import static ru.mipt.bit.platformer.util.GdxGameUtils.createSingleLayerMapRenderer;
 import static ru.mipt.bit.platformer.util.GdxGameUtils.getSingleLayer;
 
-public class Renderer {
+public class Renderer implements EventListener {
     private final Batch batch;
     private final MapRenderer levelRenderer;
     private final TiledMapTileLayer groundLayer;
@@ -60,6 +62,11 @@ public class Renderer {
 
     public void addDrawableObject(GDXDrawable drawable) {
         drawables.add(drawable);
+    }
+
+    @Override
+    public void update(EventType eventType, Object object) {
+        //todo update
     }
 
     private void renderEachTileOfLevel() {

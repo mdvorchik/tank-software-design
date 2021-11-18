@@ -2,6 +2,7 @@ package ru.mipt.bit.platformer.gameobjects;
 
 import com.badlogic.gdx.math.GridPoint2;
 import ru.mipt.bit.platformer.direction.Direction;
+import ru.mipt.bit.platformer.generator.Level;
 import ru.mipt.bit.platformer.physics.CollisionChecker;
 
 import java.util.Arrays;
@@ -11,14 +12,17 @@ import static com.badlogic.gdx.math.MathUtils.isEqual;
 import static ru.mipt.bit.platformer.util.GdxGameUtils.*;
 
 public class Tank implements Collidable {
+    private final Level level;
     private final float movementSpeed;
     private final CollisionChecker collisionChecker;
     private final GridPoint2 tankCoordinates;
     private GridPoint2 tankDestinationCoordinates;
     private float tankMovementProgress = 1f;
     private float tankRotation;
+    private Direction lastDirection;
 
-    public Tank(float movementSpeed, CollisionChecker collisionChecker, GridPoint2 playerCoordinates, GridPoint2 playerDestinationCoordinates) {
+    public Tank(Level level, float movementSpeed, CollisionChecker collisionChecker, GridPoint2 playerCoordinates, GridPoint2 playerDestinationCoordinates) {
+        this.level = level;
         this.movementSpeed = movementSpeed;
         this.collisionChecker = collisionChecker;
         this.tankCoordinates = playerCoordinates;
@@ -35,6 +39,12 @@ public class Tank implements Collidable {
             tankDestinationCoordinates.sub(direction.getChangeVector());
         }
         tankRotation = direction.getRotation();
+        lastDirection = direction;
+    }
+
+    public void shoot() {
+        Bullet bullet = new Bullet(level, this, lastDirection);
+        collisionChecker.addCollidable(bullet);
     }
 
     public void processMovementProgress(float deltaTime) {
@@ -72,9 +82,5 @@ public class Tank implements Collidable {
 
     private boolean isNotCollision() {
         return !collisionChecker.isCollisionWithAnotherGameObject(this);
-    }
-
-    public void shoot() {
-        //todo shoot
     }
 }
