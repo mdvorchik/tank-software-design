@@ -3,6 +3,7 @@ package ru.mipt.bit.platformer.ai.internal;
 import ru.mipt.bit.platformer.ai.TankCommand;
 import ru.mipt.bit.platformer.ai.TanksCommandGenerator;
 import ru.mipt.bit.platformer.ai.commands.TankMoveCommand;
+import ru.mipt.bit.platformer.ai.commands.TankShootCommand;
 import ru.mipt.bit.platformer.ai.commands.TankStayCommand;
 import ru.mipt.bit.platformer.direction.Direction;
 import ru.mipt.bit.platformer.gameobjects.Tank;
@@ -41,6 +42,10 @@ public class TanksCommandGeneratorImpl implements TanksCommandGenerator {
                         break;
                     case 3:
                         tankCommands.add(new TankMoveCommand(tank, Direction.LEFT));
+                        break;
+                    case 4:
+                    case 5:
+                        tankCommands.add(new TankShootCommand(tank));
                         break;
                     default:
                         tankCommands.add(new TankStayCommand(tank));

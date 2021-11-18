@@ -73,4 +73,8 @@ public class Tank implements Collidable {
     private boolean isNotCollision() {
         return !collisionChecker.isCollisionWithAnotherGameObject(this);
     }
+
+    public void shoot() {
+        //todo shoot
+    }
 }
