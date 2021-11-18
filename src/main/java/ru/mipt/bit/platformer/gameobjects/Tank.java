@@ -47,7 +47,7 @@ public class Tank implements Collidable {
 
     public void shoot() {
         if (!canChootInThisTick()) return;
-        Bullet bullet = new Bullet(level, this, lastDirection);
+        Bullet bullet = new Bullet(collisionChecker, level, this, lastDirection);
         level.registerBulletCreation(bullet);
         collisionChecker.addCollidable(bullet);
     }

@@ -3,6 +3,7 @@ package ru.mipt.bit.platformer.gameobjects;
 import com.badlogic.gdx.math.GridPoint2;
 import ru.mipt.bit.platformer.direction.Direction;
 import ru.mipt.bit.platformer.generator.Level;
+import ru.mipt.bit.platformer.physics.CollisionChecker;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -11,6 +12,7 @@ import static ru.mipt.bit.platformer.util.GdxGameUtils.continueProgress;
 
 public class Bullet implements Collidable {
     private final Level level;
+    private final CollisionChecker collisionChecker;
     private final Direction direction;
     private final GridPoint2 coordinates;
     private final GridPoint2 destCoordinates;
@@ -18,7 +20,8 @@ public class Bullet implements Collidable {
     private float movementProgress = 0f;
     private float movementProgressCounter = 0f;
 
-    public Bullet(Level level, Tank tank, Direction direction) {
+    public Bullet(CollisionChecker collisionChecker, Level level, Tank tank, Direction direction) {
+        this.collisionChecker = collisionChecker;
         this.level = level;
         GridPoint2 tempCoordinate = new GridPoint2(tank.getTankCoordinates());
         tempCoordinate.add(direction.getChangeVector());
@@ -34,7 +37,7 @@ public class Bullet implements Collidable {
     public boolean checkCollision(Collidable collidable) {
         for (GridPoint2 coordinateFromThisObject : this.getCoordinateList()) {
             for (GridPoint2 coordinateFromAnotherObject : collidable.getCoordinateList()) {
-                if (coordinateFromThisObject.equals(coordinateFromAnotherObject) && this != collidable) {
+                if (coordinateFromThisObject.equals(coordinateFromAnotherObject)) {
                     collidable.registerHarmfulCollision();
                     level.registerBulletDestruction(this);
                     return true;
@@ -54,8 +57,11 @@ public class Bullet implements Collidable {
     }
 
     public void processMovementProgress(float deltaTime) {
-        movementProgress = continueProgress(movementProgress, deltaTime, 2f);
-        if (movementProgress - movementProgressCounter > 1f) {
+        if (!isNotCollision()) return;
+        movementProgress = continueProgress(movementProgress, deltaTime, 1f);
+        System.out.println("Debug!" + movementProgress);
+        if (movementProgress - movementProgressCounter > 0.5f) {
+            System.out.println("Debug!");
             movementProgressCounter += 1f;
             coordinates.add(direction.getChangeVector());
         }
@@ -71,5 +77,9 @@ public class Bullet implements Collidable {
 
     public float getRotation() {
         return rotation;
+    }
+
+    private boolean isNotCollision() {
+        return !collisionChecker.isCollisionWithAnotherGameObject(this);
     }
 }
