@@ -1,6 +1,7 @@
 package ru.mipt.bit.platformer.generator.impl;
 
 import com.badlogic.gdx.math.GridPoint2;
+import ru.mipt.bit.platformer.event.EventType;
 import ru.mipt.bit.platformer.generator.Level;
 import ru.mipt.bit.platformer.generator.LevelGenerator;
 import ru.mipt.bit.platformer.generator.ObjectsByCoordinatesCreator;
@@ -61,7 +62,12 @@ public class RandomLevelGenerator implements LevelGenerator {
 
             ObjectsByCoordinatesCreator creator = new ObjectsByCoordinatesCreator(level, tankCoordinatesList,
                     treeCoordinatesList, levelBorders, collisionChecker);
-            level = new Level(creator.getPlayerTank(), creator.getTrees(), creator.getTanks());
+
+            List<EventType> eventTypes = new ArrayList<>();
+            eventTypes.add(EventType.ADD_BULLET);
+            eventTypes.add(EventType.REMOVE_BULLET);
+            eventTypes.add(EventType.REMOVE_TANK);
+            level = new Level(creator.getPlayerTank(), creator.getTrees(), creator.getTanks(), eventTypes);
         }
         return level;
     }

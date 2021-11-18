@@ -6,4 +6,6 @@ public interface GDXDrawable {
     void drawTexture(Batch batch);
 
     void drawMovement();
+
+    Object getDrawnObject();
 }

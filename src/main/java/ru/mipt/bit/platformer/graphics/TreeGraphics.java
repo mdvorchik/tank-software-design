@@ -35,6 +35,11 @@ public class TreeGraphics implements GDXDrawable {
 
     }
 
+    @Override
+    public Object getDrawnObject() {
+        return tree;
+    }
+
     public Rectangle getRectangle() {
         return rectangle;
     }

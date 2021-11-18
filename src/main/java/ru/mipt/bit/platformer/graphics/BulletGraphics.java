@@ -4,22 +4,20 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
-import ru.mipt.bit.platformer.gameobjects.Tank;
+import ru.mipt.bit.platformer.gameobjects.Bullet;
 import ru.mipt.bit.platformer.util.TileMovement;
 
 import static ru.mipt.bit.platformer.util.GdxGameUtils.createBoundingRectangle;
 import static ru.mipt.bit.platformer.util.GdxGameUtils.drawTextureRegionUnscaled;
 
-public class TankGraphics implements GDXDrawable {
-    private final Tank tank;
-    private final Texture texture;
+public class BulletGraphics implements GDXDrawable {
+    private final Bullet bullet;
     private final TextureRegion textureRegion;
     private final TileMovement tileMovement;
     private Rectangle rectangle;
 
-    public TankGraphics(Tank tank, Texture texture, TileMovement tileMovement) {
-        this.tank = tank;
-        this.texture = texture;
+    public BulletGraphics(Bullet bullet, Texture texture, TileMovement tileMovement) {
+        this.bullet = bullet;
         this.textureRegion = new TextureRegion(texture);
         this.tileMovement = tileMovement;
         this.rectangle = createBoundingRectangle(textureRegion);
@@ -27,17 +25,17 @@ public class TankGraphics implements GDXDrawable {
 
     @Override
     public void drawTexture(Batch batch) {
-        drawTextureRegionUnscaled(batch, textureRegion, rectangle, tank.getTankRotation());
+        drawTextureRegionUnscaled(batch, textureRegion, rectangle, bullet.getRotation());
     }
 
     @Override
     public void drawMovement() {
-        rectangle = tileMovement.moveRectangleBetweenTileCenters(rectangle, tank.getTankCoordinates(),
-                tank.getTankDestinationCoordinates(), tank.getTankMovementProgress());
+        rectangle = tileMovement.moveRectangleBetweenTileCenters(rectangle, bullet.getCoordinates(),
+                bullet.getDestCoordinates(), bullet.getMovementProgress());
     }
 
     @Override
     public Object getDrawnObject() {
-        return tank;
+        return bullet;
     }
 }

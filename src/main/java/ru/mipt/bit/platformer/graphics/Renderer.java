@@ -10,6 +10,8 @@ import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.Rectangle;
 import ru.mipt.bit.platformer.event.EventListener;
 import ru.mipt.bit.platformer.event.EventType;
+import ru.mipt.bit.platformer.gameobjects.Bullet;
+import ru.mipt.bit.platformer.generator.RendererBuilder;
 import ru.mipt.bit.platformer.util.GdxGameUtils;
 import ru.mipt.bit.platformer.util.TileMovement;
 
@@ -25,8 +27,10 @@ public class Renderer implements EventListener {
     private final TiledMapTileLayer groundLayer;
     private final TileMovement tileMovement;
     private final List<GDXDrawable> drawables;
+    private final RendererBuilder rendererBuilder;
 
-    public Renderer(Batch batch, TiledMap level, List<GDXDrawable> drawables) {
+    public Renderer(RendererBuilder rendererBuilder, Batch batch, TiledMap level, List<GDXDrawable> drawables) {
+        this.rendererBuilder = rendererBuilder;
         this.batch = batch;
         this.drawables = drawables;
         this.levelRenderer = createSingleLayerMapRenderer(level, batch);
@@ -66,7 +70,20 @@ public class Renderer implements EventListener {
 
     @Override
     public void update(EventType eventType, Object object) {
-        //todo update
+        if (eventType.equals(EventType.ADD_BULLET)) {
+            rendererBuilder.generateBulletGraphics((Bullet) object);
+        }
+        if (eventType.equals(EventType.REMOVE_BULLET) || eventType.equals(EventType.REMOVE_TANK)) {
+            for (GDXDrawable drawable : drawables) {
+                if (drawable.getDrawnObject() == object) {
+                    removeDrawableObject(drawable);
+                }
+            }
+        }
+    }
+
+    private void removeDrawableObject(GDXDrawable drawable) {
+        drawables.remove(drawable);
     }
 
     private void renderEachTileOfLevel() {

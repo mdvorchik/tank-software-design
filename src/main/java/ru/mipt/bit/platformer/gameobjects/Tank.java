@@ -12,6 +12,7 @@ import static com.badlogic.gdx.math.MathUtils.isEqual;
 import static ru.mipt.bit.platformer.util.GdxGameUtils.*;
 
 public class Tank implements Collidable {
+    private int health = 3;
     private final Level level;
     private final float movementSpeed;
     private final CollisionChecker collisionChecker;
@@ -44,6 +45,7 @@ public class Tank implements Collidable {
 
     public void shoot() {
         Bullet bullet = new Bullet(level, this, lastDirection);
+        level.registerBulletCreation(bullet);
         collisionChecker.addCollidable(bullet);
     }
 
@@ -58,6 +60,14 @@ public class Tank implements Collidable {
     @Override
     public Collection<GridPoint2> getCoordinateList() {
         return Arrays.asList(tankCoordinates, tankDestinationCoordinates);
+    }
+
+    @Override
+    public void registerHarmfulCollision() {
+        health--;
+        if (health <= 0) {
+            level.registerTankDestruction(this);
+        }
     }
 
     public GridPoint2 getTankCoordinates() {

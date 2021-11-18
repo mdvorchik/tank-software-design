@@ -14,6 +14,7 @@ public class Bullet implements Collidable {
     private final Direction direction;
     private final GridPoint2 coordinates;
     private final GridPoint2 destCoordinates;
+    private final float rotation;
     private float movementProgress = 0f;
     private float movementProgressCounter = 0f;
 
@@ -21,6 +22,7 @@ public class Bullet implements Collidable {
         this.level = level;
         this.coordinates = tank.getTankCoordinates().add(direction.getChangeVector());
         this.destCoordinates = this.coordinates;
+        this.rotation = tank.getTankRotation();
         this.direction = direction;
         this.destCoordinates.x += direction.getChangeVector().x * 15;
         this.destCoordinates.y += direction.getChangeVector().y * 15;
@@ -45,6 +47,10 @@ public class Bullet implements Collidable {
         return Collections.singletonList(coordinates);
     }
 
+    public GridPoint2 getCoordinates() {
+        return coordinates;
+    }
+
     public void processMovementProgress(float deltaTime) {
         movementProgress = continueProgress(movementProgress, deltaTime, 2f);
         if (movementProgress - movementProgressCounter > 1f) {
@@ -59,5 +65,9 @@ public class Bullet implements Collidable {
 
     public GridPoint2 getDestCoordinates() {
         return destCoordinates;
+    }
+
+    public float getRotation() {
+        return rotation;
     }
 }

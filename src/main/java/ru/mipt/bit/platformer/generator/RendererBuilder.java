@@ -3,8 +3,10 @@ package ru.mipt.bit.platformer.generator;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import ru.mipt.bit.platformer.gameobjects.Bullet;
 import ru.mipt.bit.platformer.gameobjects.Tank;
 import ru.mipt.bit.platformer.gameobjects.Tree;
+import ru.mipt.bit.platformer.graphics.BulletGraphics;
 import ru.mipt.bit.platformer.graphics.Renderer;
 import ru.mipt.bit.platformer.graphics.TankGraphics;
 import ru.mipt.bit.platformer.graphics.TreeGraphics;
@@ -17,13 +19,19 @@ public class RendererBuilder {
     private final List<Texture> textures = new ArrayList<>();
     private final Texture tankTexture;
     private final Texture treeTexture;
+    private final Texture bulletTexture;
 
-    public RendererBuilder(String levelConfigFileName, String tankTextureFile, String treeTextureFile) {
-        renderer = new Renderer(new SpriteBatch(), new TmxMapLoader().load(levelConfigFileName), new ArrayList<>());
+    public RendererBuilder(String levelConfigFileName,
+                           String tankTextureFile,
+                           String treeTextureFile,
+                           String bulletTextureFile) {
+        renderer = new Renderer(this, new SpriteBatch(), new TmxMapLoader().load(levelConfigFileName), new ArrayList<>());
         tankTexture = new Texture(tankTextureFile);
         textures.add(tankTexture);
         treeTexture = new Texture(treeTextureFile);
         textures.add(treeTexture);
+        bulletTexture = new Texture(bulletTextureFile);
+        textures.add(bulletTexture);
     }
 
     public Renderer generateRenderer(LevelGenerator randomLevelGenerator) {
@@ -54,6 +62,11 @@ public class RendererBuilder {
         Tank playerTank = randomLevelGenerator.getLevel().getPlayerTank();
         TankGraphics tankGraphics = new TankGraphics(playerTank, tankTexture, renderer.getTileMovement());
         renderer.addDrawableObject(tankGraphics);
+    }
+
+    public void generateBulletGraphics(Bullet bullet) {
+        BulletGraphics bulletGraphics = new BulletGraphics(bullet, bulletTexture, renderer.getTileMovement());
+        renderer.addDrawableObject(bulletGraphics);
     }
 
     public List<Texture> getTextures() {

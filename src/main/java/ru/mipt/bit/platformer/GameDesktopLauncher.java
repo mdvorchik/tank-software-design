@@ -5,6 +5,7 @@ import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 import com.badlogic.gdx.graphics.Texture;
 import ru.mipt.bit.platformer.ai.internal.TanksCommandGeneratorImpl;
+import ru.mipt.bit.platformer.event.EventType;
 import ru.mipt.bit.platformer.generator.Level;
 import ru.mipt.bit.platformer.generator.LevelGenerator;
 import ru.mipt.bit.platformer.generator.RendererBuilder;
@@ -31,9 +32,15 @@ public class GameDesktopLauncher implements ApplicationListener {
 //        LevelGenerator levelGenerator = new RandomLevelGenerator(10, 8, 4);
         LevelGenerator levelGenerator = new FromFileLevelGenerator("src/main/resources/level.txt");
         Level level = levelGenerator.getLevel();
-        rendererBuilder = new RendererBuilder("level.tmx", "images/tank_blue.png", "images/greenTree.png");
+        rendererBuilder = new RendererBuilder("level.tmx",
+                "images/tank_blue.png",
+                "images/greenTree.png",
+                "images/bullet.png");
         gameEngine = new GameEngine(level, new TanksCommandGeneratorImpl(level.getTanks(), 1f));
         renderer = rendererBuilder.generateRenderer(levelGenerator);
+        level.subscribe(EventType.ADD_BULLET, renderer);
+        level.subscribe(EventType.REMOVE_BULLET, renderer);
+        level.subscribe(EventType.REMOVE_TANK, renderer);
     }
 
     @Override
