@@ -34,6 +34,7 @@ public class GameDesktopLauncher implements ApplicationListener {
         Level level = levelGenerator.getLevel();
         rendererBuilder = new RendererBuilder("level.tmx",
                 "images/tank_blue.png",
+                "images/healthBar.png",
                 "images/greenTree.png",
                 "images/bullet.png");
         gameEngine = new GameEngine(level, new TanksCommandGeneratorImpl(level.getTanks(), 1f));

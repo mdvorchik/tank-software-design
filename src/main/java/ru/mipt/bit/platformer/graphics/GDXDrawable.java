@@ -8,4 +8,6 @@ public interface GDXDrawable {
     void drawMovement();
 
     Object getDrawnObject();
+
+    void setDrawingUIState(boolean bool);
 }

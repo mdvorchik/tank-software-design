@@ -40,6 +40,11 @@ public class TreeGraphics implements GDXDrawable {
         return tree;
     }
 
+    @Override
+    public void setDrawingUIState(boolean bool) {
+
+    }
+
     public Rectangle getRectangle() {
         return rectangle;
     }

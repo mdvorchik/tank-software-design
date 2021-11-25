@@ -40,4 +40,9 @@ public class TankGraphics implements GDXDrawable {
     public Object getDrawnObject() {
         return tank;
     }
+
+    @Override
+    public void setDrawingUIState(boolean bool) {
+
+    }
 }

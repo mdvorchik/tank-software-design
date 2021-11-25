@@ -10,6 +10,7 @@ import ru.mipt.bit.platformer.graphics.BulletGraphics;
 import ru.mipt.bit.platformer.graphics.Renderer;
 import ru.mipt.bit.platformer.graphics.TankGraphics;
 import ru.mipt.bit.platformer.graphics.TreeGraphics;
+import ru.mipt.bit.platformer.graphics.ui.TankHealthBarGraphics;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,16 +20,20 @@ public class RendererBuilder {
     private final Renderer renderer;
     private final List<Texture> textures = new ArrayList<>();
     private final Texture tankTexture;
+    private final Texture healthTexture;
     private final Texture treeTexture;
     private final Texture bulletTexture;
 
     public RendererBuilder(String levelConfigFileName,
                            String tankTextureFile,
+                           String heathTextureFile,
                            String treeTextureFile,
                            String bulletTextureFile) {
         renderer = new Renderer(this, new SpriteBatch(), new TmxMapLoader().load(levelConfigFileName), new CopyOnWriteArrayList<>());
         tankTexture = new Texture(tankTextureFile);
         textures.add(tankTexture);
+        healthTexture = new Texture(heathTextureFile);
+        textures.add(healthTexture);
         treeTexture = new Texture(treeTextureFile);
         textures.add(treeTexture);
         bulletTexture = new Texture(bulletTextureFile);
@@ -55,14 +60,16 @@ public class RendererBuilder {
         List<Tank> tanks = randomLevelGenerator.getLevel().getTanks();
         for (Tank tank : tanks) {
             TankGraphics tankGraphics = new TankGraphics(tank, tankTexture, renderer.getTileMovement());
-            renderer.addDrawableObject(tankGraphics);
+            TankHealthBarGraphics tankHealthBarGraphics = new TankHealthBarGraphics(tankGraphics, healthTexture, renderer.getTileMovement());
+            renderer.addDrawableObject(tankHealthBarGraphics);
         }
     }
 
     private void generatePlayerTankGraphics(LevelGenerator randomLevelGenerator) {
         Tank playerTank = randomLevelGenerator.getLevel().getPlayerTank();
         TankGraphics tankGraphics = new TankGraphics(playerTank, tankTexture, renderer.getTileMovement());
-        renderer.addDrawableObject(tankGraphics);
+        TankHealthBarGraphics tankHealthBarGraphics = new TankHealthBarGraphics(tankGraphics, healthTexture, renderer.getTileMovement());
+        renderer.addDrawableObject(tankHealthBarGraphics);
     }
 
     public void generateBulletGraphics(Bullet bullet) {

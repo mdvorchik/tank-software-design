@@ -99,6 +99,10 @@ public class Tank implements Collidable {
         return tankRotation;
     }
 
+    public int getHealth() {
+        return health;
+    }
+
     private boolean canMoveInThisTick() {
         return isEqual(tankMovementProgress, 1f);
     }

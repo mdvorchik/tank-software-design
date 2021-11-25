@@ -38,4 +38,9 @@ public class BulletGraphics implements GDXDrawable {
     public Object getDrawnObject() {
         return bullet;
     }
+
+    @Override
+    public void setDrawingUIState(boolean bool) {
+
+    }
 }
