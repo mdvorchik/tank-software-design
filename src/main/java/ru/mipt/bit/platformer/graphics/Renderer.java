@@ -70,6 +70,9 @@ public class Renderer implements EventListener {
 
     @Override
     public void update(EventType eventType, Object object) {
+        if (eventType.equals(EventType.CHANGE_UI_RENDER_MODE)) {
+            drawables.forEach(d -> d.changeDrawingUIState());
+        }
         if (eventType.equals(EventType.ADD_BULLET)) {
             rendererBuilder.generateBulletGraphics((Bullet) object);
         }

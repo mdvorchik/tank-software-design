@@ -9,5 +9,5 @@ public interface GDXDrawable {
 
     Object getDrawnObject();
 
-    void setDrawingUIState(boolean bool);
+    void changeDrawingUIState();
 }

@@ -56,7 +56,7 @@ public class TankHealthBarGraphics implements GDXDrawable {
     }
 
     @Override
-    public void setDrawingUIState(boolean bool) {
-        drawUI = bool;
+    public void changeDrawingUIState() {
+        drawUI = !drawUI;
     }
 }

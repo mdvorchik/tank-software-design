@@ -14,9 +14,9 @@ public class GameEngine {
     private final Level level;
     private final TanksCommandGenerator tanksCommandGenerator;
 
-    public GameEngine(Level level, TanksCommandGenerator tanksCommandGenerator) {
+    public GameEngine(Level level, InputProcessor inputProcessor, TanksCommandGenerator tanksCommandGenerator) {
         this.level = level;
-        this.inputProcessor = new InputProcessor(level.getPlayerTank());
+        this.inputProcessor = inputProcessor;
         this.tanksCommandGenerator = tanksCommandGenerator;
     }
 

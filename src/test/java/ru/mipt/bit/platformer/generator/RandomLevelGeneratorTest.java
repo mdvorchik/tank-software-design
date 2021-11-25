@@ -1,12 +1,15 @@
 package ru.mipt.bit.platformer.generator;
 
 import org.junit.Test;
+import ru.mipt.bit.platformer.InputProcessor;
 import ru.mipt.bit.platformer.ai.internal.TanksCommandGeneratorImpl;
+import ru.mipt.bit.platformer.event.EventType;
 import ru.mipt.bit.platformer.gameobjects.Tank;
 import ru.mipt.bit.platformer.gameobjects.Tree;
 import ru.mipt.bit.platformer.generator.impl.RandomLevelGenerator;
 import ru.mipt.bit.platformer.physics.GameEngine;
 
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -20,7 +23,9 @@ public class RandomLevelGeneratorTest {
         RandomLevelGenerator randomLevelGenerator = new RandomLevelGenerator(8, 10, 4, 2);
         Level level = randomLevelGenerator.getLevel();
         //when
-        GameEngine gameEngine = new GameEngine(level, new TanksCommandGeneratorImpl(level.getTanks(), 2f));
+        GameEngine gameEngine = new GameEngine(level,
+                new InputProcessor(level.getPlayerTank(), Collections.singletonList(EventType.CHANGE_UI_RENDER_MODE)),
+                new TanksCommandGeneratorImpl(level.getTanks(), 2f));
         //verify
         assertNotNull(gameEngine);
     }

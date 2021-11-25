@@ -4,16 +4,26 @@ import com.badlogic.gdx.Gdx;
 import ru.mipt.bit.platformer.ai.TankCommand;
 import ru.mipt.bit.platformer.ai.commands.*;
 import ru.mipt.bit.platformer.direction.Direction;
+import ru.mipt.bit.platformer.event.EventListener;
+import ru.mipt.bit.platformer.event.EventPublisher;
+import ru.mipt.bit.platformer.event.EventType;
 import ru.mipt.bit.platformer.gameobjects.Tank;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import static com.badlogic.gdx.Input.Keys.*;
 
-public class InputProcessor {
+public class InputProcessor implements EventPublisher {
 
     private final Tank tank;
+    private final Map<EventType, List<EventListener>> listeners = new HashMap<>();
 
-    public InputProcessor(Tank tank) {
+    public InputProcessor(Tank tank, List<EventType> eventTypes) {
         this.tank = tank;
+        eventTypes.forEach(e -> listeners.put(e, new ArrayList<>()));
     }
 
     public TankCommand processInputs() {
@@ -32,6 +42,29 @@ public class InputProcessor {
         if (Gdx.input.isKeyPressed(SPACE)) {
             return new TankShootCommand(tank);
         }
+        if (Gdx.input.isKeyJustPressed(L)) {
+            notifySubs(EventType.CHANGE_UI_RENDER_MODE, new Object());
+        }
         return new TankStayCommand(tank);
+    }
+
+    @Override
+    public void subscribe(EventType eventType, EventListener eventListener) {
+        List<EventListener> listenersByType = listeners.get(eventType);
+        listenersByType.add(eventListener);
+    }
+
+    @Override
+    public void unsubscribe(EventType eventType, EventListener eventListener) {
+        List<EventListener> listenersByType = listeners.get(eventType);
+        listenersByType.remove(eventListener);
+    }
+
+    @Override
+    public void notifySubs(EventType eventType, Object object) {
+        List<EventListener> listenersByType = listeners.get(eventType);
+        for (EventListener listener : listenersByType) {
+            listener.update(eventType, object);
+        }
     }
 }

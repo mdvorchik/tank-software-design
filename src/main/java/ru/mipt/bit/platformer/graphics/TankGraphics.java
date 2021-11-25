@@ -42,7 +42,7 @@ public class TankGraphics implements GDXDrawable {
     }
 
     @Override
-    public void setDrawingUIState(boolean bool) {
+    public void changeDrawingUIState() {
 
     }
 }

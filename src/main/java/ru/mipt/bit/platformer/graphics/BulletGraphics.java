@@ -40,7 +40,7 @@ public class BulletGraphics implements GDXDrawable {
     }
 
     @Override
-    public void setDrawingUIState(boolean bool) {
+    public void changeDrawingUIState() {
 
     }
 }
