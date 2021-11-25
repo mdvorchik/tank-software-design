@@ -19,7 +19,7 @@ public class Tank implements Collidable {
     private final GridPoint2 tankCoordinates;
     private final GridPoint2 tankDestinationCoordinates;
     private TankState tankState;
-    private int health = 2;
+    private int health = 3;
     private float tankMovementProgress = 1f;
     private Direction lastDirection = Direction.UP;
     private long lastShoot = new Date().getTime();
