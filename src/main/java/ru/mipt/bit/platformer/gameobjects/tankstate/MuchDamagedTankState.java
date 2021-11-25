@@ -7,8 +7,6 @@ import ru.mipt.bit.platformer.gameobjects.TankState;
 import ru.mipt.bit.platformer.generator.Level;
 import ru.mipt.bit.platformer.physics.CollisionChecker;
 
-import java.util.Date;
-
 import static com.badlogic.gdx.math.MathUtils.isEqual;
 import static ru.mipt.bit.platformer.util.GdxGameUtils.continueProgress;
 
@@ -17,6 +15,7 @@ public class MuchDamagedTankState implements TankState {
     private final CollisionChecker collisionChecker;
     private final Level level;
     private final float movementSpeed;
+    private final long lastShoot;
     private float tankMovementProgress;
     private Direction lastDirection;
 
@@ -28,14 +27,16 @@ public class MuchDamagedTankState implements TankState {
         this.tankMovementProgress = tank.getTankMovementProgress();
         this.lastDirection = lastDirection;
         this.movementSpeed = movementSpeed;
+        this.lastShoot = lastShoot;
     }
 
     @Override
-    public void shoot() {
-        if (!canChootInThisTick()) return;
+    public long shoot() {
+        if (!canChootInThisTick()) return lastShoot;
         Bullet bullet = new Bullet(collisionChecker, level, tank, lastDirection);
         level.registerBulletCreation(bullet);
         collisionChecker.addCollidable(bullet);
+        return lastShoot;
     }
 
     @Override

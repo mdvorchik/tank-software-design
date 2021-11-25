@@ -33,11 +33,12 @@ public class NoDamagedTankState implements TankState {
     }
 
     @Override
-    public void shoot() {
-        if (!canChootInThisTick()) return;
+    public long shoot() {
+        if (!canChootInThisTick()) return lastShoot;
         Bullet bullet = new Bullet(collisionChecker, level, tank, lastDirection);
         level.registerBulletCreation(bullet);
         collisionChecker.addCollidable(bullet);
+        return lastShoot;
     }
 
     @Override

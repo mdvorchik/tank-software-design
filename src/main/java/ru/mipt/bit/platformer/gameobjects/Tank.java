@@ -39,7 +39,7 @@ public class Tank implements Collidable {
     }
 
     public void shoot() {
-        tankState.shoot();
+        lastShoot = tankState.shoot();
     }
 
     public void processMovementProgress(float deltaTime) {
