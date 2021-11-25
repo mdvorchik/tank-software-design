@@ -2,6 +2,8 @@ package ru.mipt.bit.platformer.gameobjects;
 
 import com.badlogic.gdx.math.GridPoint2;
 import ru.mipt.bit.platformer.direction.Direction;
+import ru.mipt.bit.platformer.gameobjects.tankstate.AverageDamagedTankState;
+import ru.mipt.bit.platformer.gameobjects.tankstate.MuchDamagedTankState;
 import ru.mipt.bit.platformer.gameobjects.tankstate.NoDamagedTankState;
 import ru.mipt.bit.platformer.generator.Level;
 import ru.mipt.bit.platformer.physics.CollisionChecker;
@@ -17,7 +19,7 @@ public class Tank implements Collidable {
     private final GridPoint2 tankCoordinates;
     private final GridPoint2 tankDestinationCoordinates;
     private TankState tankState;
-    private int health = 3;
+    private int health = 2;
     private float tankMovementProgress = 1f;
     private Direction lastDirection = Direction.UP;
     private long lastShoot = new Date().getTime();
@@ -52,6 +54,12 @@ public class Tank implements Collidable {
     @Override
     public void registerHarmfulCollision() {
         health--;
+        if (health == 2) {
+            tankState = new AverageDamagedTankState(this, collisionChecker, level, movementSpeed, lastShoot, lastDirection);
+        }
+        if (health == 1) {
+            tankState = new MuchDamagedTankState(this, collisionChecker, level, movementSpeed, lastShoot, lastDirection);
+        }
         if (health <= 0) {
             collisionChecker.removeCollidable(this);
             level.registerTankDestruction(this);
