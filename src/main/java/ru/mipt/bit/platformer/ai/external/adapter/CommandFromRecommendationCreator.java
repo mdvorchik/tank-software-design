@@ -9,6 +9,9 @@ import ru.mipt.bit.platformer.ai.commands.TankStayCommand;
 import ru.mipt.bit.platformer.direction.Direction;
 import ru.mipt.bit.platformer.gameobjects.Tank;
 
+/**
+ * Adapter
+ */
 public class CommandFromRecommendationCreator {
     public TankCommand createCommand(Recommendation recommendation) {
         Tank tank = (Tank) recommendation.getActor().getSource();

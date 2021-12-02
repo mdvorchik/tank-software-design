@@ -10,6 +10,9 @@ import ru.mipt.bit.platformer.gameobjects.Tree;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Adapter
+ */
 public class GameStateFromLevelCreator {
     private final BotFromTankCreator botCreator = new BotFromTankCreator();
     private final ObstacleFromTreeCreator obstacleCreator = new ObstacleFromTreeCreator();

@@ -10,6 +10,9 @@ import java.util.List;
 
 import static ru.mipt.bit.platformer.util.GdxGameUtils.incrementedY;
 
+/**
+ * Use-case
+ */
 public class ObjectsByCoordinatesCreator {
     private final List<GridPoint2> tankCoordinatesList;
     private final List<GridPoint2> treeCoordinatesList;

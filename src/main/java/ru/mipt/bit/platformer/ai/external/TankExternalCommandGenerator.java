@@ -13,6 +13,9 @@ import ru.mipt.bit.platformer.gameobjects.Tree;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Adapter & Use-case
+ */
 public class TankExternalCommandGenerator implements TanksCommandGenerator {
     private final AI ai;
     private final GameState gameState;

@@ -10,6 +10,9 @@ import ru.mipt.bit.platformer.physics.CollisionChecker;
 import static com.badlogic.gdx.math.MathUtils.isEqual;
 import static ru.mipt.bit.platformer.util.GdxGameUtils.continueProgress;
 
+/**
+ * Use-case
+ */
 public class MuchDamagedTankState implements TankState {
     private final Tank tank;
     private final CollisionChecker collisionChecker;

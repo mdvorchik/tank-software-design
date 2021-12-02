@@ -3,6 +3,9 @@ package ru.mipt.bit.platformer.ai.commands;
 import ru.mipt.bit.platformer.ai.TankCommand;
 import ru.mipt.bit.platformer.gameobjects.Tank;
 
+/**
+ * Use-case
+ */
 public class TankStayCommand implements TankCommand {
     private final Tank tank;
 

@@ -12,6 +12,9 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
 
+/**
+ * Entity
+ */
 public class Tank implements Collidable {
     private final Level level;
     private final float movementSpeed;

@@ -5,6 +5,9 @@ import com.badlogic.gdx.math.GridPoint2;
 import java.util.Collection;
 import java.util.Collections;
 
+/**
+ * Entity
+ */
 public class Tree implements Collidable {
     private final GridPoint2 treeObstacleCoordinates;
     private final float rotation;

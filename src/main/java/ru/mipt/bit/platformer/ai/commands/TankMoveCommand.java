@@ -4,6 +4,9 @@ import ru.mipt.bit.platformer.ai.TankCommand;
 import ru.mipt.bit.platformer.direction.Direction;
 import ru.mipt.bit.platformer.gameobjects.Tank;
 
+/**
+ * Use-case
+ */
 public class TankMoveCommand implements TankCommand {
     private final Tank tank;
     private final Direction direction;

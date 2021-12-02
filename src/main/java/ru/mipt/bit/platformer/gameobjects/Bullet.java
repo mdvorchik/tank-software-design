@@ -10,6 +10,9 @@ import java.util.Collections;
 
 import static ru.mipt.bit.platformer.util.GdxGameUtils.continueProgress;
 
+/**
+ * Use-case
+ */
 public class Bullet implements Collidable {
     private final Level level;
     private final Tank tank;

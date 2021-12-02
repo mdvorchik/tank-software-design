@@ -11,6 +11,9 @@ import ru.mipt.bit.platformer.gameobjects.Tank;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Use-case
+ */
 public class TanksCommandGeneratorImpl implements TanksCommandGenerator {
 
     private final List<Tank> tanks;

@@ -12,6 +12,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * Use-case
+ */
 public class RandomLevelGenerator implements LevelGenerator {
     private final int widthOfMap;
     private final int heightOfMap;

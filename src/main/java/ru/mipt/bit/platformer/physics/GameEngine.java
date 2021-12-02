@@ -8,6 +8,9 @@ import ru.mipt.bit.platformer.gameobjects.Bullet;
 import ru.mipt.bit.platformer.gameobjects.Tank;
 import ru.mipt.bit.platformer.generator.Level;
 
+/**
+ * Adapter
+ */
 public class GameEngine {
 
     private final InputProcessor inputProcessor;

@@ -11,6 +11,9 @@ import ru.mipt.bit.platformer.physics.CollisionChecker;
 import java.io.FileReader;
 import java.util.*;
 
+/**
+ * Use-case
+ */
 public class FromFileLevelGenerator implements LevelGenerator {
     private final String fileName;
     private Level level;

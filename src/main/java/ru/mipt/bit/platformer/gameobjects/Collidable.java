@@ -4,6 +4,9 @@ import com.badlogic.gdx.math.GridPoint2;
 
 import java.util.Collection;
 
+/**
+ * Entity
+ */
 public interface Collidable {
     default boolean checkCollision(Collidable collidable) {
         for (GridPoint2 coordinateFromThisObject : this.getCoordinateList()) {

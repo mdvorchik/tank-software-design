@@ -2,6 +2,9 @@ package ru.mipt.bit.platformer.direction;
 
 import com.badlogic.gdx.math.GridPoint2;
 
+/**
+ * Entity
+ */
 public enum Direction {
     UP {
         public float getRotation() {

@@ -1,5 +1,8 @@
 package ru.mipt.bit.platformer.event;
 
+/**
+ * Entity
+ */
 public interface EventPublisher {
     void subscribe(EventType eventType, EventListener eventListener);
 

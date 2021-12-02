@@ -15,7 +15,9 @@ import ru.mipt.bit.platformer.physics.GameEngine;
 
 import java.util.Collections;
 
-
+/**
+ * Adapter
+ */
 public class GameDesktopLauncher implements ApplicationListener {
 
     private RendererBuilder rendererBuilder;

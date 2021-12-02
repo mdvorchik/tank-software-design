@@ -16,6 +16,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+/**
+ * Use-case
+ */
 public class RendererBuilder {
     private final Renderer renderer;
     private final List<Texture> textures = new ArrayList<>();

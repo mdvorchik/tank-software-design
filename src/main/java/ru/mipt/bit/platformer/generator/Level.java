@@ -11,6 +11,9 @@ import java.util.*;
 import java.util.concurrent.ConcurrentLinkedDeque;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+/**
+ * Use-case
+ */
 public class Level implements EventPublisher {
     private Tank playerTank = null;
     private final List<Tree> trees = new CopyOnWriteArrayList<>();

@@ -4,6 +4,9 @@ import ru.mipt.bit.platformer.gameobjects.Collidable;
 
 import java.util.List;
 
+/**
+ * Use-case
+ */
 public class CollisionChecker {
     private final List<Collidable> collidables;
 

@@ -11,6 +11,9 @@ import ru.mipt.bit.platformer.util.TileMovement;
 
 import static ru.mipt.bit.platformer.util.GdxGameUtils.*;
 
+/**
+ * Use-case
+ */
 public class TankHealthBarGraphics implements GDXDrawable {
     private final TankGraphics tankGraphics;
     private final Texture texture;
