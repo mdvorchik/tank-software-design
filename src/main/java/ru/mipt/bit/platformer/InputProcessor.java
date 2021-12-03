@@ -17,7 +17,7 @@ import java.util.Map;
 import static com.badlogic.gdx.Input.Keys.*;
 
 /**
- * Port
+ * Port, adapter
  */
 public class InputProcessor implements EventPublisher {
 

@@ -1,7 +1,7 @@
 package ru.mipt.bit.platformer.event;
 
 /**
- * Entity
+ * Port
  */
 public interface EventListener {
     void update(EventType eventType, Object object);

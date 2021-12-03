@@ -12,7 +12,7 @@ import java.io.FileReader;
 import java.util.*;
 
 /**
- * Use-case
+ * Infrastructure
  */
 public class FromFileLevelGenerator implements LevelGenerator {
     private final String fileName;

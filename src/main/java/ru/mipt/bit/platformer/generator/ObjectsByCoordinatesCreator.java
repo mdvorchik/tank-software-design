@@ -11,7 +11,7 @@ import java.util.List;
 import static ru.mipt.bit.platformer.util.GdxGameUtils.incrementedY;
 
 /**
- * Use-case
+ * Infrastructure
  */
 public class ObjectsByCoordinatesCreator {
     private final List<GridPoint2> tankCoordinatesList;

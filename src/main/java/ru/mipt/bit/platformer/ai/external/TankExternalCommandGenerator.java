@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Adapter & Use-case
+ * Adapter
  */
 public class TankExternalCommandGenerator implements TanksCommandGenerator {
     private final AI ai;

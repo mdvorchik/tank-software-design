@@ -1,7 +1,7 @@
 package ru.mipt.bit.platformer.generator;
 
 /**
- * Entity
+ * Port
  */
 public interface LevelGenerator {
     Level getLevel();

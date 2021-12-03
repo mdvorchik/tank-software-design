@@ -3,7 +3,7 @@ package ru.mipt.bit.platformer.graphics;
 import com.badlogic.gdx.graphics.g2d.Batch;
 
 /**
- * Entity
+ * Port
  */
 public interface GDXDrawable {
     void drawTexture(Batch batch);

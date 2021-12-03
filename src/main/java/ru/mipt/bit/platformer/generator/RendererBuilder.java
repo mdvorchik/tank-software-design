@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
- * Use-case
+ * Infrastructure
  */
 public class RendererBuilder {
     private final Renderer renderer;

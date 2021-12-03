@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * Use-case
+ * Infrastructure
  */
 public class RandomLevelGenerator implements LevelGenerator {
     private final int widthOfMap;

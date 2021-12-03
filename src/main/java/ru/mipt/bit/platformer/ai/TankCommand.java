@@ -1,7 +1,7 @@
 package ru.mipt.bit.platformer.ai;
 
 /**
- * Entity
+ * Port
  */
 public interface TankCommand {
     void execute();
