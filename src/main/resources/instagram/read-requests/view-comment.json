@@ -1,0 +1,15 @@
+{
+  "Запрос_клиента": {
+    "view-comment": {
+      "postId": "long",
+      "commentId": "long",
+      "date": "date"
+    }
+  },
+  "Ответ_сервера": {
+    "response": {
+      "statusCode": "int",
+      "commentText": "string"
+    }
+  }
+}

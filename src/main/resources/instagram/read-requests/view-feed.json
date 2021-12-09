@@ -1,0 +1,66 @@
+{
+  "Запрос_клиента": {
+    "view-feed": {
+      "userId": "long",
+      "lastSeenPostId": "long",
+      "date": "date"
+    }
+  },
+  "Ответ_сервера": {
+    "response": {
+      "statusCode": "int",
+      "posts": [
+        {
+          "postId": "long",
+          "postText": "string",
+          "postLikes": "int"
+        },
+        {
+          "postId": "long",
+          "postText": "string",
+          "postLikes": "int"
+        },
+        {
+          "postId": "long",
+          "postText": "string",
+          "postLikes": "int"
+        },
+        {
+          "postId": "long",
+          "postText": "string",
+          "postLikes": "int"
+        },
+        {
+          "postId": "long",
+          "postText": "string",
+          "postLikes": "int"
+        },
+        {
+          "postId": "long",
+          "postText": "string",
+          "postLikes": "int"
+        },
+        {
+          "postId": "long",
+          "postText": "string",
+          "postLikes": "int"
+        },
+        {
+          "postId": "long",
+          "postText": "string",
+          "postLikes": "int"
+        },
+        {
+          "postId": "long",
+          "postText": "string",
+          "postLikes": "int"
+        },
+        {
+          "postId": "long",
+          "postText": "string",
+          "postLikes": "int"
+        }
+      ]
+    }
+  }
+}

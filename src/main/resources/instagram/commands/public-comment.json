@@ -1,0 +1,15 @@
+{
+  "Запрос_клиента": {
+    "public-comment": {
+      "userId": "long",
+      "postId": "long",
+      "commentText": "string",
+      "date": "date"
+    }
+  },
+  "Ответ_сервера": {
+    "response": {
+      "statusCode": "int"
+    }
+  }
+}

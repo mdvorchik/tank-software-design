@@ -1,0 +1,14 @@
+{
+  "Запрос_клиента": {
+    "public-post": {
+      "userId": "long",
+      "postText": "string",
+      "date": "date"
+    }
+  },
+  "Ответ_сервера": {
+    "response": {
+      "statusCode": "int"
+    }
+  }
+}
