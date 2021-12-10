@@ -12,53 +12,15 @@
       "posts": [
         {
           "postId": "long",
+          "postAuthorId": "long",
           "postText": "string",
-          "postLikes": "int"
+          "postImage": "blob",
+          "commentsList": "json",
+          "postLikes": "int",
+          "likesListJson": "json"
         },
         {
-          "postId": "long",
-          "postText": "string",
-          "postLikes": "int"
-        },
-        {
-          "postId": "long",
-          "postText": "string",
-          "postLikes": "int"
-        },
-        {
-          "postId": "long",
-          "postText": "string",
-          "postLikes": "int"
-        },
-        {
-          "postId": "long",
-          "postText": "string",
-          "postLikes": "int"
-        },
-        {
-          "postId": "long",
-          "postText": "string",
-          "postLikes": "int"
-        },
-        {
-          "postId": "long",
-          "postText": "string",
-          "postLikes": "int"
-        },
-        {
-          "postId": "long",
-          "postText": "string",
-          "postLikes": "int"
-        },
-        {
-          "postId": "long",
-          "postText": "string",
-          "postLikes": "int"
-        },
-        {
-          "postId": "long",
-          "postText": "string",
-          "postLikes": "int"
+          "еще 10 таких постов":"..."
         }
       ]
     }

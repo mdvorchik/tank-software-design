@@ -2,14 +2,25 @@
   "Запрос_клиента": {
     "view-comment": {
       "postId": "long",
-      "commentId": "long",
       "date": "date"
     }
   },
   "Ответ_сервера": {
     "response": {
       "statusCode": "int",
-      "commentText": "string"
+      "comments": [
+        {
+          "commentAuthorId": "long",
+          "сommentText": "long",
+          "reply": {
+            "commentAuthorId": "long",
+            "сommentText": "long"
+          }
+        },
+        {
+          "еще 100 таких комментариев": "..."
+        }
+      ]
     }
   }
 }
