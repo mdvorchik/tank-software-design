@@ -4,6 +4,7 @@ import ru.mipt.bit.platformer.event.EventListener;
 import ru.mipt.bit.platformer.event.EventPublisher;
 import ru.mipt.bit.platformer.event.EventType;
 import ru.mipt.bit.platformer.gameobjects.Bullet;
+import ru.mipt.bit.platformer.gameobjects.Collidable;
 import ru.mipt.bit.platformer.gameobjects.Tank;
 import ru.mipt.bit.platformer.gameobjects.Tree;
 
@@ -72,6 +73,10 @@ public class Level implements EventPublisher {
             tanks.remove(tank);
             notifySubs(EventType.REMOVE_TANK, tank);
         }
+    }
+
+    public void registerHarmfulCollision(Collidable collidable) {
+        collidable.registerHarmfulCollision();
     }
 
     public Queue<Bullet> getBullets() {

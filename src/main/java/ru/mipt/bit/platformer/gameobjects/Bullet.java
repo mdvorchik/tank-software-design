@@ -41,7 +41,7 @@ public class Bullet implements Collidable {
             for (GridPoint2 coordinateFromAnotherObject : collidable.getCoordinateList()) {
                 if (coordinateFromThisObject.equals(coordinateFromAnotherObject)) {
                     if (collidable != tank) {
-                        collidable.registerHarmfulCollision();
+                        level.registerHarmfulCollision(collidable);
                     }
                     level.registerBulletDestruction(this);
                     collisionChecker.removeCollidable(this);
