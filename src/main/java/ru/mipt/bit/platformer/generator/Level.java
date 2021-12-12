@@ -22,18 +22,6 @@ public class Level implements EventPublisher {
         eventTypes.forEach(event -> listeners.put(event, new ArrayList<>()));
     }
 
-    public void addAllTanks(List<Tank> tanks) {
-        this.tanks.addAll(tanks);
-    }
-
-    public void addAllTrees(List<Tree> trees) {
-        this.trees.addAll(trees);
-    }
-
-    public void addPlayerTank(Tank tank) {
-        this.playerTank = tank;
-    }
-
     public List<Tree> getTrees() {
         return trees;
     }
@@ -44,6 +32,26 @@ public class Level implements EventPublisher {
 
     public Tank getPlayerTank() {
         return playerTank;
+    }
+
+    public void registerTreeCreation(Tree tree) {
+        trees.add(tree);
+        notifySubs(EventType.ADD_TREE, tree);
+    }
+
+    public void registerTreeDestruction(Tree tree) {
+        trees.remove(tree);
+        notifySubs(EventType.REMOVE_TREE, tree);
+    }
+
+    public void registerTankCreation(Tank tank) {
+        tanks.add(tank);
+        notifySubs(EventType.ADD_TANK, tank);
+    }
+
+    public void registerPlayerTankCreation(Tank tank) {
+        playerTank = tank;
+        notifySubs(EventType.ADD_PLAYER_TANK, tank);
     }
 
     public void registerBulletCreation(Bullet bullet) {
@@ -58,11 +66,12 @@ public class Level implements EventPublisher {
 
     public void registerTankDestruction(Tank tank) {
         if (playerTank == tank) {
-
+            //game over
+            notifySubs(EventType.REMOVE_PLAYER_TANK, tank);
         } else {
             tanks.remove(tank);
+            notifySubs(EventType.REMOVE_TANK, tank);
         }
-        notifySubs(EventType.REMOVE_TANK, tank);
     }
 
     public Queue<Bullet> getBullets() {

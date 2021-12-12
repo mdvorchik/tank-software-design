@@ -35,19 +35,27 @@ public class GameDesktopLauncher implements ApplicationListener {
 //        LevelGenerator levelGenerator = new RandomLevelGenerator(10, 8, 4);
         LevelGenerator levelGenerator = new FromFileLevelGenerator("src/main/resources/level.txt");
         Level level = levelGenerator.getLevel();
+
         rendererBuilder = new RendererBuilder("level.tmx",
                 "images/tank_blue.png",
                 "images/healthBar.png",
                 "images/greenTree.png",
                 "images/bullet.png");
         UISettings uiSettings = new UISettings(Collections.singletonList(EventType.CHANGE_UI_RENDER_MODE));
-        InputProcessor inputProcessor = new InputProcessor(level.getPlayerTank(), uiSettings);
-        gameEngine = new GameEngine(level, inputProcessor, new TanksCommandGeneratorImpl(level.getTanks(), 1f));
-        renderer = rendererBuilder.generateRenderer(levelGenerator);
+        renderer = rendererBuilder.getRenderer();
         uiSettings.subscribe(EventType.CHANGE_UI_RENDER_MODE, renderer);
         level.subscribe(EventType.ADD_BULLET, renderer);
         level.subscribe(EventType.REMOVE_BULLET, renderer);
+        level.subscribe(EventType.ADD_TANK, renderer);
         level.subscribe(EventType.REMOVE_TANK, renderer);
+        level.subscribe(EventType.ADD_PLAYER_TANK, renderer);
+        level.subscribe(EventType.REMOVE_PLAYER_TANK, renderer);
+        level.subscribe(EventType.ADD_TREE, renderer);
+        level.subscribe(EventType.REMOVE_TREE, renderer);
+        levelGenerator.fillLevel(level);
+
+        InputProcessor inputProcessor = new InputProcessor(level.getPlayerTank(), uiSettings);
+        gameEngine = new GameEngine(level, inputProcessor, new TanksCommandGeneratorImpl(level.getTanks(), 1f));
     }
 
     @Override

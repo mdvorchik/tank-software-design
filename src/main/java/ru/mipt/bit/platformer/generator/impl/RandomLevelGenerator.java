@@ -55,23 +55,33 @@ public class RandomLevelGenerator implements LevelGenerator {
     @Override
     public Level getLevel() {
         if (level == null) {
-            List<GridPoint2> treeCoordinatesList = new ArrayList<>(generateRandomCoordinates(treesCount, widthOfMap, heightOfMap));
-            List<GridPoint2> tankCoordinatesList = new ArrayList<>(generateRandomCoordinates(tankCount, widthOfMap, heightOfMap));
-            List<GridPoint2> levelBorders = new ArrayList<>(createBorderCoordinates(widthOfMap, heightOfMap));
-            CollisionChecker collisionChecker = new CollisionChecker(new ArrayList<>());
-
             List<EventType> eventTypes = new ArrayList<>();
             eventTypes.add(EventType.ADD_BULLET);
             eventTypes.add(EventType.REMOVE_BULLET);
+            eventTypes.add(EventType.ADD_TANK);
             eventTypes.add(EventType.REMOVE_TANK);
+            eventTypes.add(EventType.ADD_PLAYER_TANK);
+            eventTypes.add(EventType.REMOVE_PLAYER_TANK);
+            eventTypes.add(EventType.ADD_TREE);
+            eventTypes.add(EventType.REMOVE_TREE);
             level = new Level(eventTypes);
-            ObjectsByCoordinatesCreator creator = new ObjectsByCoordinatesCreator(level, tankCoordinatesList,
-                    treeCoordinatesList, levelBorders, collisionChecker);
-            level.addPlayerTank(creator.getPlayerTank());
-            level.addAllTrees(creator.getTrees());
-            level.addAllTanks(creator.getTanks());
         }
         return level;
+    }
+
+    @Override
+    public void fillLevel(Level level) {
+        List<GridPoint2> treeCoordinatesList = new ArrayList<>(generateRandomCoordinates(treesCount, widthOfMap, heightOfMap));
+        List<GridPoint2> tankCoordinatesList = new ArrayList<>(generateRandomCoordinates(tankCount, widthOfMap, heightOfMap));
+        List<GridPoint2> levelBorders = new ArrayList<>(createBorderCoordinates(widthOfMap, heightOfMap));
+        CollisionChecker collisionChecker = new CollisionChecker(new ArrayList<>());
+
+        ObjectsByCoordinatesCreator creator = new ObjectsByCoordinatesCreator(level, tankCoordinatesList,
+                treeCoordinatesList, levelBorders, collisionChecker);
+
+        level.registerPlayerTankCreation(creator.getPlayerTank());
+        creator.getTrees().forEach(level::registerTreeCreation);
+        creator.getTanks().forEach(level::registerTankCreation);
     }
 }
 

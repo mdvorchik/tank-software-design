@@ -11,6 +11,8 @@ import com.badlogic.gdx.math.Rectangle;
 import ru.mipt.bit.platformer.event.EventListener;
 import ru.mipt.bit.platformer.event.EventType;
 import ru.mipt.bit.platformer.gameobjects.Bullet;
+import ru.mipt.bit.platformer.gameobjects.Tank;
+import ru.mipt.bit.platformer.gameobjects.Tree;
 import ru.mipt.bit.platformer.generator.RendererBuilder;
 import ru.mipt.bit.platformer.util.GdxGameUtils;
 import ru.mipt.bit.platformer.util.TileMovement;
@@ -73,10 +75,16 @@ public class Renderer implements EventListener {
         if (eventType.equals(EventType.CHANGE_UI_RENDER_MODE)) {
             drawables.forEach(d -> d.changeDrawingUIState());
         }
+        if (eventType.equals(EventType.ADD_PLAYER_TANK) || eventType.equals(EventType.ADD_TANK)) {
+            rendererBuilder.generateTankGraphics((Tank) object);
+        }
+        if (eventType.equals(EventType.ADD_TREE)) {
+            rendererBuilder.generateTreeGraphics((Tree) object);
+        }
         if (eventType.equals(EventType.ADD_BULLET)) {
             rendererBuilder.generateBulletGraphics((Bullet) object);
         }
-        if (eventType.equals(EventType.REMOVE_BULLET) || eventType.equals(EventType.REMOVE_TANK)) {
+        if (eventType.equals(EventType.REMOVE_BULLET) || eventType.equals(EventType.REMOVE_TANK) || eventType.equals(EventType.REMOVE_TREE)) {
             for (GDXDrawable drawable : drawables) {
                 if (drawable.getDrawnObject() == object) {
                     removeDrawableObject(drawable);

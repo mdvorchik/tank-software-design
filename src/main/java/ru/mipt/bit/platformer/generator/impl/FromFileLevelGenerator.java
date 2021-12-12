@@ -2,7 +2,6 @@ package ru.mipt.bit.platformer.generator.impl;
 
 import com.badlogic.gdx.math.GridPoint2;
 import ru.mipt.bit.platformer.event.EventType;
-import ru.mipt.bit.platformer.gameobjects.Tank;
 import ru.mipt.bit.platformer.generator.Level;
 import ru.mipt.bit.platformer.generator.LevelGenerator;
 import ru.mipt.bit.platformer.generator.ObjectsByCoordinatesCreator;
@@ -72,23 +71,32 @@ public class FromFileLevelGenerator implements LevelGenerator {
     @Override
     public Level getLevel() {
         if (level == null) {
-            List<GridPoint2> treeCoordinatesList = new ArrayList<>(readCoordinatesOf(fileName, "T"));
-            List<GridPoint2> tankCoordinatesList = new ArrayList<>(readCoordinatesOf(fileName, "X"));
-            List<GridPoint2> levelBordersList = new ArrayList<>(readCoordinatesOf(fileName));
-            CollisionChecker collisionChecker = new CollisionChecker(new ArrayList<>());
-
-
             List<EventType> eventTypes = new ArrayList<>();
             eventTypes.add(EventType.ADD_BULLET);
             eventTypes.add(EventType.REMOVE_BULLET);
+            eventTypes.add(EventType.ADD_TANK);
             eventTypes.add(EventType.REMOVE_TANK);
+            eventTypes.add(EventType.ADD_PLAYER_TANK);
+            eventTypes.add(EventType.REMOVE_PLAYER_TANK);
+            eventTypes.add(EventType.ADD_TREE);
+            eventTypes.add(EventType.REMOVE_TREE);
             level = new Level(eventTypes);
-            ObjectsByCoordinatesCreator creator = new ObjectsByCoordinatesCreator(level, tankCoordinatesList,
-                    treeCoordinatesList, levelBordersList, collisionChecker);
-            level.addPlayerTank(creator.getPlayerTank());
-            level.addAllTrees(creator.getTrees());
-            level.addAllTanks(creator.getTanks());
         }
         return level;
+    }
+
+    @Override
+    public void fillLevel(Level level) {
+        List<GridPoint2> treeCoordinatesList = new ArrayList<>(readCoordinatesOf(fileName, "T"));
+        List<GridPoint2> tankCoordinatesList = new ArrayList<>(readCoordinatesOf(fileName, "X"));
+        List<GridPoint2> levelBordersList = new ArrayList<>(readCoordinatesOf(fileName));
+        CollisionChecker collisionChecker = new CollisionChecker(new ArrayList<>());
+
+        ObjectsByCoordinatesCreator creator = new ObjectsByCoordinatesCreator(level, tankCoordinatesList,
+                treeCoordinatesList, levelBordersList, collisionChecker);
+
+        level.registerPlayerTankCreation(creator.getPlayerTank());
+        creator.getTrees().forEach(level::registerTreeCreation);
+        creator.getTanks().forEach(level::registerTankCreation);
     }
 }

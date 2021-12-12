@@ -40,34 +40,18 @@ public class RendererBuilder {
         textures.add(bulletTexture);
     }
 
-    public Renderer generateRenderer(LevelGenerator randomLevelGenerator) {
-        generateTankGraphics(randomLevelGenerator);
-        generateTreeGraphics(randomLevelGenerator);
+    public Renderer getRenderer() {
         return renderer;
     }
 
-    private void generateTreeGraphics(LevelGenerator randomLevelGenerator) {
-        List<Tree> trees = randomLevelGenerator.getLevel().getTrees();
-        for (Tree tree : trees) {
-            TreeGraphics treeGraphics = new TreeGraphics(tree, treeTexture, renderer.getTileMovement());
-            renderer.addDrawableObject(treeGraphics);
-            renderer.moveRectangleAtTileCenter(treeGraphics.getRectangle(), tree.getCoordinates());
-        }
+    public void generateTreeGraphics(Tree tree) {
+        TreeGraphics treeGraphics = new TreeGraphics(tree, treeTexture, renderer.getTileMovement());
+        renderer.addDrawableObject(treeGraphics);
+        renderer.moveRectangleAtTileCenter(treeGraphics.getRectangle(), tree.getCoordinates());
     }
 
-    private void generateTankGraphics(LevelGenerator randomLevelGenerator) {
-        generatePlayerTankGraphics(randomLevelGenerator);
-        List<Tank> tanks = randomLevelGenerator.getLevel().getTanks();
-        for (Tank tank : tanks) {
-            TankGraphics tankGraphics = new TankGraphics(tank, tankTexture, renderer.getTileMovement());
-            TankHealthBarGraphics tankHealthBarGraphics = new TankHealthBarGraphics(tankGraphics, healthTexture, renderer.getTileMovement());
-            renderer.addDrawableObject(tankHealthBarGraphics);
-        }
-    }
-
-    private void generatePlayerTankGraphics(LevelGenerator randomLevelGenerator) {
-        Tank playerTank = randomLevelGenerator.getLevel().getPlayerTank();
-        TankGraphics tankGraphics = new TankGraphics(playerTank, tankTexture, renderer.getTileMovement());
+    public void generateTankGraphics(Tank tank) {
+        TankGraphics tankGraphics = new TankGraphics(tank, tankTexture, renderer.getTileMovement());
         TankHealthBarGraphics tankHealthBarGraphics = new TankHealthBarGraphics(tankGraphics, healthTexture, renderer.getTileMovement());
         renderer.addDrawableObject(tankHealthBarGraphics);
     }
