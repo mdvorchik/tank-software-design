@@ -38,6 +38,7 @@ public class FromFileLevelGeneratorTest {
     public void getTrees() {
         //given
         FromFileLevelGenerator fromFileLevelGenerator = new FromFileLevelGenerator("src/test/resources/test_level.txt");
+        fromFileLevelGenerator.fillLevel(fromFileLevelGenerator.getLevel());
         List<GridPoint2> expectedCoordinates = new ArrayList<>();
         expectedCoordinates.add(new GridPoint2(1, 2));
         expectedCoordinates.add(new GridPoint2(2, 0));
@@ -52,6 +53,7 @@ public class FromFileLevelGeneratorTest {
     public void getTank() {
         //given
         FromFileLevelGenerator fromFileLevelGenerator = new FromFileLevelGenerator("src/test/resources/test_level.txt");
+        fromFileLevelGenerator.fillLevel(fromFileLevelGenerator.getLevel());
         GridPoint2 expectedCoordinate = new GridPoint2(1, 1);
         //when
         Tank tank = fromFileLevelGenerator.getLevel().getPlayerTank();

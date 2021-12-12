@@ -35,6 +35,7 @@ public class RandomLevelGeneratorTest {
     public void getTrees() {
         //given
         RandomLevelGenerator randomLevelGenerator = new RandomLevelGenerator(8, 10, 4, 2);
+        randomLevelGenerator.fillLevel(randomLevelGenerator.getLevel());
         //when
         List<Tree> trees = randomLevelGenerator.getLevel().getTrees();
         //verify
@@ -45,6 +46,7 @@ public class RandomLevelGeneratorTest {
     public void getTank() {
         //given
         RandomLevelGenerator randomLevelGenerator = new RandomLevelGenerator(8, 10, 4, 2);
+        randomLevelGenerator.fillLevel(randomLevelGenerator.getLevel());
         //when
         Tank tank = randomLevelGenerator.getLevel().getPlayerTank();
         //verify
