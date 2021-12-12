@@ -1,12 +1,12 @@
-package ru.mipt.bit.platformer.ai.commands;
+package ru.mipt.bit.platformer.commands.impl;
 
-import ru.mipt.bit.platformer.ai.TankCommand;
+import ru.mipt.bit.platformer.commands.Command;
 import ru.mipt.bit.platformer.gameobjects.Tank;
 
-public class TankStayCommand implements TankCommand {
+public class StayCommand implements Command {
     private final Tank tank;
 
-    public TankStayCommand(Tank tank) {
+    public StayCommand(Tank tank) {
         this.tank = tank;
     }
 

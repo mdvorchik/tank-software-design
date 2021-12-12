@@ -1,10 +1,10 @@
 package ru.mipt.bit.platformer.ai.internal;
 
-import ru.mipt.bit.platformer.ai.TankCommand;
+import ru.mipt.bit.platformer.commands.Command;
 import ru.mipt.bit.platformer.ai.TanksCommandGenerator;
-import ru.mipt.bit.platformer.ai.commands.TankMoveCommand;
-import ru.mipt.bit.platformer.ai.commands.TankShootCommand;
-import ru.mipt.bit.platformer.ai.commands.TankStayCommand;
+import ru.mipt.bit.platformer.commands.impl.MoveCommand;
+import ru.mipt.bit.platformer.commands.impl.ShootCommand;
+import ru.mipt.bit.platformer.commands.impl.StayCommand;
 import ru.mipt.bit.platformer.direction.Direction;
 import ru.mipt.bit.platformer.gameobjects.Tank;
 
@@ -23,35 +23,35 @@ public class TanksCommandGeneratorImpl implements TanksCommandGenerator {
     }
 
     @Override
-    public List<TankCommand> generateCommands(float deltaTime) {
+    public List<Command> generateCommands(float deltaTime) {
         progress += deltaTime;
-        List<TankCommand> tankCommands = new ArrayList<>();
+        List<Command> commands = new ArrayList<>();
         if (progress > interval) {
             progress = 0f;
             for (Tank tank : tanks) {
                 int numberOfCommand = (int) (Math.random() * 7);
                 switch (numberOfCommand) {
                     case 0:
-                        tankCommands.add(new TankMoveCommand(tank, Direction.UP));
+                        commands.add(new MoveCommand(tank, Direction.UP));
                         break;
                     case 1:
-                        tankCommands.add(new TankMoveCommand(tank, Direction.RIGHT));
+                        commands.add(new MoveCommand(tank, Direction.RIGHT));
                         break;
                     case 2:
-                        tankCommands.add(new TankMoveCommand(tank, Direction.DOWN));
+                        commands.add(new MoveCommand(tank, Direction.DOWN));
                         break;
                     case 3:
-                        tankCommands.add(new TankMoveCommand(tank, Direction.LEFT));
+                        commands.add(new MoveCommand(tank, Direction.LEFT));
                         break;
                     case 4:
                     case 5:
-                        tankCommands.add(new TankShootCommand(tank));
+                        commands.add(new ShootCommand(tank));
                         break;
                     default:
-                        tankCommands.add(new TankStayCommand(tank));
+                        commands.add(new StayCommand(tank));
                 }
             }
         }
-        return tankCommands;
+        return commands;
     }
 }

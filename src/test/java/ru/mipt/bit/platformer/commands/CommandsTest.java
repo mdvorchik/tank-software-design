@@ -1,17 +1,19 @@
-package ru.mipt.bit.platformer.ai.commands;
+package ru.mipt.bit.platformer.commands;
 
 import org.junit.Test;
 import org.mockito.Mockito;
+import ru.mipt.bit.platformer.commands.impl.MoveCommand;
+import ru.mipt.bit.platformer.commands.impl.ShootCommand;
 import ru.mipt.bit.platformer.direction.Direction;
 import ru.mipt.bit.platformer.gameobjects.Tank;
 
-public class TankCommandsTest {
+public class CommandsTest {
 
     @Test
     public void executeTankMoveUpCommand() {
         //given
         Tank mockTank = Mockito.mock(Tank.class);
-        TankMoveCommand command = new TankMoveCommand(mockTank, Direction.UP);
+        MoveCommand command = new MoveCommand(mockTank, Direction.UP);
         //when
         command.execute();
         //verify
@@ -23,7 +25,7 @@ public class TankCommandsTest {
     public void executeTankMoveRightCommand() {
         //given
         Tank mockTank = Mockito.mock(Tank.class);
-        TankMoveCommand command = new TankMoveCommand(mockTank, Direction.RIGHT);
+        MoveCommand command = new MoveCommand(mockTank, Direction.RIGHT);
         //when
         command.execute();
         //verify
@@ -35,7 +37,7 @@ public class TankCommandsTest {
     public void executeTankMoveDownCommand() {
         //given
         Tank mockTank = Mockito.mock(Tank.class);
-        TankMoveCommand command = new TankMoveCommand(mockTank, Direction.DOWN);
+        MoveCommand command = new MoveCommand(mockTank, Direction.DOWN);
         //when
         command.execute();
         //verify
@@ -47,7 +49,7 @@ public class TankCommandsTest {
     public void executeTankMoveLeftCommand() {
         //given
         Tank mockTank = Mockito.mock(Tank.class);
-        TankMoveCommand command = new TankMoveCommand(mockTank, Direction.LEFT);
+        MoveCommand command = new MoveCommand(mockTank, Direction.LEFT);
         //when
         command.execute();
         //verify
@@ -59,7 +61,7 @@ public class TankCommandsTest {
     public void executeTankShootCommand() {
         //given
         Tank mockTank = Mockito.mock(Tank.class);
-        TankShootCommand command = new TankShootCommand(mockTank);
+        ShootCommand command = new ShootCommand(mockTank);
         //when
         command.execute();
         //verify

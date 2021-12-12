@@ -8,6 +8,7 @@ import ru.mipt.bit.platformer.event.EventType;
 import ru.mipt.bit.platformer.gameobjects.Tank;
 import ru.mipt.bit.platformer.gameobjects.Tree;
 import ru.mipt.bit.platformer.generator.impl.FromFileLevelGenerator;
+import ru.mipt.bit.platformer.graphics.ui.UISettings;
 import ru.mipt.bit.platformer.physics.GameEngine;
 
 import java.util.ArrayList;
@@ -27,7 +28,7 @@ public class FromFileLevelGeneratorTest {
         Level level = fromFileLevelGenerator.getLevel();
         //when
         GameEngine gameEngine = new GameEngine(level,
-                new InputProcessor(level.getPlayerTank(), Collections.singletonList(EventType.CHANGE_UI_RENDER_MODE)),
+                new InputProcessor(level.getPlayerTank(), new UISettings(Collections.singletonList(EventType.CHANGE_UI_RENDER_MODE))),
                 new TanksCommandGeneratorImpl(level.getTanks(), 2f));
         //verify
         assertNotNull(gameEngine);

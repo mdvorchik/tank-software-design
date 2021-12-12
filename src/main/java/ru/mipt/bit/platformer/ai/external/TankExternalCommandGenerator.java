@@ -3,7 +3,7 @@ package ru.mipt.bit.platformer.ai.external;
 import org.awesome.ai.AI;
 import org.awesome.ai.Recommendation;
 import org.awesome.ai.state.GameState;
-import ru.mipt.bit.platformer.ai.TankCommand;
+import ru.mipt.bit.platformer.commands.Command;
 import ru.mipt.bit.platformer.ai.TanksCommandGenerator;
 import ru.mipt.bit.platformer.ai.external.adapter.CommandFromRecommendationCreator;
 import ru.mipt.bit.platformer.ai.external.adapter.GameStateFromLevelCreator;
@@ -28,9 +28,9 @@ public class TankExternalCommandGenerator implements TanksCommandGenerator {
     }
 
     @Override
-    public List<TankCommand> generateCommands(float deltaTime) {
+    public List<Command> generateCommands(float deltaTime) {
         progress += deltaTime;
-        List<TankCommand> commands = new ArrayList<>();
+        List<Command> commands = new ArrayList<>();
         if (progress > interval) {
             progress = 0f;
             List<Recommendation> recommendations = ai.recommend(gameState);

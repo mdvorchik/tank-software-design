@@ -1,14 +1,14 @@
-package ru.mipt.bit.platformer.ai.commands;
+package ru.mipt.bit.platformer.commands.impl;
 
-import ru.mipt.bit.platformer.ai.TankCommand;
+import ru.mipt.bit.platformer.commands.Command;
 import ru.mipt.bit.platformer.direction.Direction;
 import ru.mipt.bit.platformer.gameobjects.Tank;
 
-public class TankMoveCommand implements TankCommand {
+public class MoveCommand implements Command {
     private final Tank tank;
     private final Direction direction;
 
-    public TankMoveCommand(Tank tank, Direction direction) {
+    public MoveCommand(Tank tank, Direction direction) {
         this.tank = tank;
         this.direction = direction;
     }

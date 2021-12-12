@@ -11,6 +11,7 @@ import ru.mipt.bit.platformer.generator.LevelGenerator;
 import ru.mipt.bit.platformer.generator.RendererBuilder;
 import ru.mipt.bit.platformer.generator.impl.FromFileLevelGenerator;
 import ru.mipt.bit.platformer.graphics.Renderer;
+import ru.mipt.bit.platformer.graphics.ui.UISettings;
 import ru.mipt.bit.platformer.physics.GameEngine;
 
 import java.util.Collections;
@@ -39,10 +40,11 @@ public class GameDesktopLauncher implements ApplicationListener {
                 "images/healthBar.png",
                 "images/greenTree.png",
                 "images/bullet.png");
-        InputProcessor inputProcessor = new InputProcessor(level.getPlayerTank(), Collections.singletonList(EventType.CHANGE_UI_RENDER_MODE));
+        UISettings uiSettings = new UISettings(Collections.singletonList(EventType.CHANGE_UI_RENDER_MODE));
+        InputProcessor inputProcessor = new InputProcessor(level.getPlayerTank(), uiSettings);
         gameEngine = new GameEngine(level, inputProcessor, new TanksCommandGeneratorImpl(level.getTanks(), 1f));
         renderer = rendererBuilder.generateRenderer(levelGenerator);
-        inputProcessor.subscribe(EventType.CHANGE_UI_RENDER_MODE, renderer);
+        uiSettings.subscribe(EventType.CHANGE_UI_RENDER_MODE, renderer);
         level.subscribe(EventType.ADD_BULLET, renderer);
         level.subscribe(EventType.REMOVE_BULLET, renderer);
         level.subscribe(EventType.REMOVE_TANK, renderer);
