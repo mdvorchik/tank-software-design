@@ -1,0 +1,28 @@
+{
+  "Запрос_клиента": {
+    "view-feed": {
+      "userId": "long",
+      "lastSeenPostId": "long",
+      "date": "date"
+    }
+  },
+  "Ответ_сервера": {
+    "response": {
+      "statusCode": "int",
+      "posts": [
+        {
+          "postId": "long",
+          "postAuthorId": "long",
+          "postText": "string",
+          "postImage": "blob",
+          "commentsList": "json",
+          "postLikes": "int",
+          "likesListJson": "json"
+        },
+        {
+          "еще 10 таких постов":"..."
+        }
+      ]
+    }
+  }
+}

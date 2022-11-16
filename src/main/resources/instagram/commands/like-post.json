@@ -1,0 +1,14 @@
+{
+  "Запрос_клиента": {
+    "like-post": {
+      "userId": "long",
+      "postId": "long",
+      "date": "date"
+    }
+  },
+  "Ответ_сервера": {
+    "response": {
+      "statusCode": "int"
+    }
+  }
+}
